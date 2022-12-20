@@ -7,7 +7,7 @@ const NavBar: React.FC = () => {
             <NavButton to="/" name="Home"/>
             <NavButton to="/encoder" name="Encoder"/>
             {/*<NavButton to="/inbox" name="Inbox"/>*/}
-            <NavButton to="/message" name="Message"/>
+            <NavButton to="/message/received" name="Message"/>
         </div>
     );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import LoginBar from "./LoginBar";
+import ProfileBar from "./ProfileBar";
 import NavBar from "./NavBar";
 import {useNavigate} from "react-router-dom";
 
@@ -27,10 +27,11 @@ const Header: React.FC<HeaderProps> = ({
                 Secret Cipher
             </h1>
             <div className="header__nav-container">
-                <LoginBar
+                <ProfileBar
                     loggedIn={loggedIn}
                     setLoggedIn={setLoggedIn}
                     username={username}
+                    setUsername={setUsername}
                 />
                 <NavBar/>
             </div>

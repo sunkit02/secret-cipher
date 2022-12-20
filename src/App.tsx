@@ -2,17 +2,22 @@ import React, {useState} from "react";
 import {Route, Routes} from "react-router-dom";
 
 import Header from "./components/header/Header";
-import Home from "./components/home/Home";
+import HomePage from "./components/home/HomePage";
 
-import Encoder from "./components/encoder/Encoder";
-import Message from "./components/message/Message";
+import EncoderPage from "./components/encoder/EncoderPage";
+import MessagePage from "./components/message/MessagePage";
 
 import "./App.css";
 import "./css/header.css";
+import ReceivedMessagePage from "./components/message/received/ReceivedMessagePage";
+import SentMessagePage from "./components/message/sent/SentMessagePage";
+import SendMessagePage from "./components/message/send/SendMessagePage";
+import LoginPage from "./components/login/LoginPage";
+import SignUpPage from "./components/login/SignUpPage";
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState("Guest");
 
 
     return (
@@ -25,9 +30,15 @@ function App() {
             />
             <div className="body">
                 <Routes>
-                    <Route index element={<Home/>}/>
-                    <Route path={"/encoder"} element={<Encoder/>}/>
-                    <Route path={"/message"} element={<Message/>}/>
+                    <Route index element={<HomePage/>}/>
+                    <Route path="encoder" element={<EncoderPage loggedIn={loggedIn}/>}/>
+                    <Route path="message" element={<MessagePage loggedIn={loggedIn}/>}>
+                        <Route path="send" element={<SendMessagePage />}/>
+                        <Route path="received" element={<ReceivedMessagePage />}/>
+                        <Route path="sent" element={<SentMessagePage />}/>
+                    </Route>
+                    <Route path="login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} setUsername={setUsername}/>}/>
+                    <Route path="signup" element={<SignUpPage/>}/>
                 </Routes>
             </div>
         </>

@@ -5,7 +5,7 @@ interface HomeProps {
 }
 
 // eslint-disable-next-line no-empty-pattern
-const Home: React.FC<HomeProps> = ({}) => {
+const HomePage: React.FC<HomeProps> = ({}) => {
     return (
         <>
             <h3>Home Page</h3>
@@ -13,4 +13,4 @@ const Home: React.FC<HomeProps> = ({}) => {
     )
 }
 
-export default Home;
+export default HomePage;

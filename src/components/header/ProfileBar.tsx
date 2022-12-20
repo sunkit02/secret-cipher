@@ -1,17 +1,29 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
 
 interface LoginBarProps {
     loggedIn: boolean;
     setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
     username: string;
+    setUsername: React.Dispatch<React.SetStateAction<string>>;
 }
 
 
-const LoginBar: React.FC<LoginBarProps> = ({
+const ProfileBar: React.FC<LoginBarProps> = ({
                                                loggedIn,
                                                setLoggedIn,
-                                               username
+                                               username,
+                                               setUsername
                                            }) => {
+    const navigate = useNavigate();
+
+    const handleLogButtonClick = () => {
+        if (loggedIn) {
+            setUsername("Guest");
+            setLoggedIn(false);
+        }
+        navigate("login");
+    }
     return (
         <div className="header__login-bar">
             <span className="header__login-bar-username">
@@ -19,7 +31,7 @@ const LoginBar: React.FC<LoginBarProps> = ({
             </span>
             <button
                 className="header__login-bar-btn generic-btn rounded-btn"
-                onClick={() => setLoggedIn(!loggedIn)}
+                onClick={handleLogButtonClick}
             >
                 {loggedIn ? "Logout" : "Login"}
             </button>
@@ -27,4 +39,4 @@ const LoginBar: React.FC<LoginBarProps> = ({
     );
 }
 
-export default LoginBar;
+export default ProfileBar;
