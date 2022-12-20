@@ -1,0 +1,76 @@
+.header {
+  background-color: var(--MEDIUM-COLOR);
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: .2rem .5rem 0 .5rem;
+}
+
+/***  Site Name  ***/
+/*  Site name  */
+
+.header__site-name {
+  display: inline-block;
+  color: var(--TEXT-COLOR);
+  font-family: var(--CURSIVE-FAMILY);
+  font-size: 1.7rem;
+  font-weight: 700;
+  padding: 0 0 .5rem 0;
+}
+
+.header__site-name:hover {
+  cursor: pointer;
+}
+
+
+/***  Navigation Container  ***/
+
+.header__nav-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/*  Login Bar  */
+
+.header__login-bar {
+  display: flex;
+  height: 35%;
+}
+
+.header__login-bar-username {
+  font-family: var(--CURSIVE-FAMILY);
+  font-size: 0.65rem;
+  color: var(--TEXT-COLOR);
+  margin-right: .5rem;
+}
+
+.header__login-bar-btn {
+  color: var(--TEXT-COLOR);
+  font-size: .55rem;
+  padding: 2px;
+  width: 40px;
+  margin-top: 1px;
+  background-color: var(--BUTTON-COLOR);
+}
+
+.header__login-bar-btn:hover {
+  background-color: var(--BUTTON-HOVER-COLOR);
+}
+
+/*  Navigation Bar  */
+
+.header__navbar {
+  display: flex;
+  justify-content: center;
+  height: 55%;
+}
+
+.header__nav-btn {
+  padding: 0 1rem 0 1rem;
+}
+
+.header__nav-btn {
+  cursor: pointer;
+}
