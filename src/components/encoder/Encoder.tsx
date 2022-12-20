@@ -1,3 +1,5 @@
+import React from "react";
+
 const Encoder: React.FC = ({}) => {
   return (
     <>
