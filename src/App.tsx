@@ -9,6 +9,7 @@ import MessagePage from "./components/message/MessagePage";
 
 import "./App.css";
 import "./css/header.css";
+import "./css/login-signup.css";
 import ReceivedMessagePage from "./components/message/received/ReceivedMessagePage";
 import SentMessagePage from "./components/message/sent/SentMessagePage";
 import SendMessagePage from "./components/message/send/SendMessagePage";

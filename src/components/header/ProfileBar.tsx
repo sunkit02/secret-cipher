@@ -30,7 +30,7 @@ const ProfileBar: React.FC<LoginBarProps> = ({
                 Welcome, <span className="italics">{username}</span> !
             </span>
             <button
-                className="header__login-bar-btn generic-btn rounded-btn"
+                className="header__login-bar-btn gen-btn rounded-btn"
                 onClick={handleLogButtonClick}
             >
                 {loggedIn ? "Logout" : "Login"}

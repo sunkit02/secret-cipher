@@ -11,7 +11,7 @@ const NavButton: React.FC<NavButtonProps> = ({name, to}) => {
 
     return (
         <button
-            className="header__nav-btn generic-btn"
+            className="header__nav-btn"
             onClick={() => navigate(to)}
         >
             {name}

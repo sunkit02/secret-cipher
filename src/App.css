@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
+
 :root {
   --BACKGROUND-COLOR: #B5D8E5;
+  --CONTAINER-BACKGROUND-COLOR: whitesmoke;
 
   /*  Header  */
   --LIGHT-COLOR: var(--BACKGROUND-COLOR);
@@ -23,6 +26,7 @@
 }
 
 body {
+  font-family: var(--NORMAL-FAMILY);
   background-color: var(--LIGHT-COLOR);
 }
 
@@ -36,18 +40,27 @@ body {
   font-style: italic;
 }
 
-.generic-btn {
+/*  a generic button  */
+.gen-btn {
   color: var(--TEXT-COLOR);
   background-color: var(--BUTTON-COLOR);
   border: none;
   transition: 0.2s;
 }
 
-.generic-btn:hover {
+.gen-btn:hover {
   background-color: var(--BUTTON-HOVER-COLOR);
   cursor: pointer;
 }
 
+/*  button with rounded corners  */
 .rounded-btn {
   border-radius: 3px;
+}
+
+/*  A generic background for items to stand out
+    from the base background */
+.gen-container {
+  background-color: var(--CONTAINER-BACKGROUND-COLOR);
+
 }

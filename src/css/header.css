@@ -52,7 +52,6 @@
   padding: 2px;
   width: 40px;
   margin-top: 1px;
-  background-color: var(--BUTTON-COLOR);
 }
 
 .header__login-bar-btn:hover {
@@ -68,8 +67,15 @@
 }
 
 .header__nav-btn {
+  color: var(--TEXT-COLOR);
+  border: none;
+  transition: 0.2s;
   padding: 0 1rem 0 1rem;
   background-color: var(--MEDIUM-COLOR);
+}
+
+.header__nav-btn:hover {
+  background-color: var(--BUTTON-HOVER-COLOR);
 }
 
 .header__nav-btn {

@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import {Outlet, useNavigate} from "react-router-dom";
+import React from "react";
+import {Navigate, Outlet, useNavigate} from "react-router-dom";
 
 interface MessagePageProps {
     loggedIn: boolean;
@@ -7,10 +7,9 @@ interface MessagePageProps {
 const MessagePage: React.FC<MessagePageProps> = ({loggedIn}) => {
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!loggedIn)
-            navigate("/login");
-    }, [loggedIn, navigate]);
+    if (!loggedIn) {
+        return <Navigate to="/login" />
+    }
 
     return (
         <>

@@ -1,16 +1,14 @@
-import React, {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import React from "react";
+import {Navigate} from "react-router-dom";
 
 interface EncoderPageProps {
     loggedIn: boolean;
 }
 
 const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn}) => {
-    const navigate = useNavigate();
-    useEffect(() => {
-        if (!loggedIn)
-            navigate("/login");
-    },[loggedIn, navigate])
+    if (!loggedIn) {
+        return <Navigate to={"/login"}/>
+    }
     return (
         <>
             <h3>Encoder</h3>
