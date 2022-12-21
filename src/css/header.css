@@ -16,6 +16,8 @@
   font-size: 1.7rem;
   font-weight: 700;
   padding: 0 0 .5rem 0;
+
+  user-select: none;
 }
 
 .header__site-name:hover {
@@ -44,6 +46,8 @@
   font-size: 0.65rem;
   color: var(--TEXT-COLOR);
   margin-right: .5rem;
+
+  user-select: none;
 }
 
 .header__login-bar-btn {
@@ -72,6 +76,8 @@
   transition: 0.2s;
   padding: 0 1rem 0 1rem;
   background-color: var(--MEDIUM-COLOR);
+
+  user-select: none;
 }
 
 .header__nav-btn:hover {

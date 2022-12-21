@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
 
 :root {
-  --BACKGROUND-COLOR: #B5D8E5;
-  --CONTAINER-BACKGROUND-COLOR: whitesmoke;
+  /*--BACKGROUND-COLOR: #B5D8E5;*/
+  --BACKGROUND-COLOR: #ddebff;
+  --CONTAINER-BACKGROUND-COLOR: #cce5ff;
 
   /*  Header  */
   --LIGHT-COLOR: var(--BACKGROUND-COLOR);
@@ -46,6 +47,8 @@ body {
   background-color: var(--BUTTON-COLOR);
   border: none;
   transition: 0.2s;
+
+  user-select: none;
 }
 
 .gen-btn:hover {
@@ -62,5 +65,36 @@ body {
     from the base background */
 .gen-container {
   background-color: var(--CONTAINER-BACKGROUND-COLOR);
-
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
+
+.gen-input {
+  border-radius: 3px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+}
+
+.gen-input:focus {
+  outline: none;
+}
+
+
+.error-message {
+  padding: 0 1rem 0 1rem;
+  background-color: #ffa7a7;
+  color: red;
+  font-size: .6rem;
+  border: 1px solid red;
+  border-radius: 10px;
+}
+
+.success-message {
+  padding: 0 1rem 0 1rem;
+  background-color: #aff1af;
+  color: green;
+  font-size: .6rem;
+  border: 1px solid green;
+  border-radius: 10px;
+}
+
