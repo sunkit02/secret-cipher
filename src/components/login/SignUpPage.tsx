@@ -82,7 +82,7 @@ const SignUpPage: React.FC = () => {
                     <label className="sign-up__label">
                         Username
                         <input
-                            className="sign-up__input gen-input"
+                            className="sign-up__input gen-text-input"
                             type="text"
                             placeholder="Username"
                             onChange={(e) => setUsername(e.target.value)}
@@ -92,7 +92,7 @@ const SignUpPage: React.FC = () => {
                     <label className="sign-up__label">
                         Password
                         <input
-                            className="sign-up__input gen-input"
+                            className="sign-up__input gen-text-input"
                             type="password"
                             placeholder="Password"
                             onChange={(e) => setPassword(e.target.value)}
@@ -101,7 +101,7 @@ const SignUpPage: React.FC = () => {
                     <label className="sign-up__label">
                         Confirm-password
                         <input
-                            className="sign-up__input gen-input"
+                            className="sign-up__input gen-text-input"
                             type="password"
                             placeholder="Confirm password"
                             onChange={(e) => setConfirmPassword(e.target.value)}

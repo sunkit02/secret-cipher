@@ -13,6 +13,7 @@
 
 .encoder__input-container {
   width: 90%;
+  border-radius: 5px;
 }
 
 /*  Key input bar  */

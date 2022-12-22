@@ -76,7 +76,7 @@
   transition: 0.2s;
   padding: 0 1rem 0 1rem;
   background-color: var(--MEDIUM-COLOR);
-
+  cursor: pointer;
   user-select: none;
 }
 
@@ -84,6 +84,10 @@
   background-color: var(--BUTTON-HOVER-COLOR);
 }
 
-.header__nav-btn {
-  cursor: pointer;
+.header__nav-btn:focus {
+  /*border-radius: 3px;*/
+  outline: none;
+  /*border: 2px solid var(--DARK-COLOR);*/
+  background-color: var(--BUTTON-HOVER-COLOR);
+  /*transform: scale(1.08);*/
 }

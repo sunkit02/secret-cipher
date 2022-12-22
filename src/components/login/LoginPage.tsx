@@ -97,12 +97,12 @@ const LoginPage: React.FC<LoginPageProps> = ({
                     onSubmit={handleLogin}
                 >
                     <input
-                        className="login__input gen-input"
+                        className="login__input gen-text-input"
                         type="text"
                         placeholder="Username"
                         onChange={(e) => setUsernameInput(e.target.value)}/>
                     <input
-                        className="login__input gen-input"
+                        className="login__input gen-text-input"
                         type="password"
                         placeholder="Password"
                         onChange={(e) => setPasswordInput(e.target.value)}

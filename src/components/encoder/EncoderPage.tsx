@@ -56,7 +56,7 @@ const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn}) => {
 
             <div className="encoder__key-input-container">
                 <input
-                    className="encoder__key-input gen-input"
+                    className="encoder__key-input gen-text-input"
                     type="text"
                     onChange={(e) => setKey(e.target.value)}
                     placeholder="Enter key here"
@@ -86,7 +86,7 @@ const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn}) => {
                     Decode
                 </label>
             </div>
-            <div className="encoder__input-container">
+            <div className="encoder__input-container gen-container">
                 <div className="encoder__input-title-container">
                     <span className="encoder__input-title">
                         {operationType === OperationType.ENCODE

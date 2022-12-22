@@ -68,6 +68,10 @@ body {
   cursor: pointer;
 }
 
+.gen-btn:focus {
+  outline: 2px solid var(--DARK-COLOR);
+}
+
 /*  button with rounded corners  */
 .rounded-btn {
   border-radius: 3px;
@@ -78,17 +82,17 @@ body {
 .gen-container {
   background-color: var(--CONTAINER-BACKGROUND-COLOR);
   border-radius: 5px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
 }
 
-.gen-input {
+.gen-text-input {
   border-radius: 3px;
-  border: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+  border: 1px solid grey;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-.gen-input:focus {
-  outline: 1px solid var(--MEDIUM-COLOR);
+.gen-text-input:focus {
+  outline: 2px solid var(--MEDIUM-COLOR);
 }
 
 
