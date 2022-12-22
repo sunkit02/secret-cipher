@@ -44,7 +44,7 @@ const SignUpPage: React.FC = () => {
 
                 setTimeout(() => {
                     navigate("/login");
-                }, 5000)
+                }, 500)
             })
             .catch(err => {
                 setPopUpMessage({

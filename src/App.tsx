@@ -11,6 +11,8 @@ import "./App.css";
 import "./css/header.css";
 import "./css/login.css";
 import "./css/sign-up.css";
+import "./css/home.css";
+import "./css/encoder.css";
 
 import ReceivedMessagePage from "./components/message/received/ReceivedMessagePage";
 import SentMessagePage from "./components/message/sent/SentMessagePage";

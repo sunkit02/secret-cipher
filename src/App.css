@@ -8,7 +8,7 @@
   /*  Header  */
   --LIGHT-COLOR: var(--BACKGROUND-COLOR);
   --MEDIUM-COLOR: #458DD6;
-  --DARK-COLOR: #67a3e0;
+  --DARK-COLOR: #005cb7;
 
   /* Text Properties */
   --TEXT-COLOR: #FFF;
@@ -26,9 +26,21 @@
   box-sizing: border-box;
 }
 
+html {
+  margin: 0;
+  padding: 0;
+  width: inherit;
+  height: 100%;
+  overflow: auto;
+}
+
 body {
   font-family: var(--NORMAL-FAMILY);
   background-color: var(--LIGHT-COLOR);
+}
+
+.root {
+  width: 100%;
 }
 
 /*  Utility classes  */
@@ -76,7 +88,7 @@ body {
 }
 
 .gen-input:focus {
-  outline: none;
+  outline: 1px solid var(--MEDIUM-COLOR);
 }
 
 

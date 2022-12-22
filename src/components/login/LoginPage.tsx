@@ -49,7 +49,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
                             {
                                 replace: true,
                             });
-                    }, 500);
+                    }, 300);
             })
             .catch(err => {
                 console.log(err);
