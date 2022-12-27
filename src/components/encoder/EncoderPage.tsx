@@ -20,6 +20,7 @@ interface EncoderPageProps {
 
 // todo: optimize websocket connection to avoid reconnecting everytime the component is reloaded (lifting the state up?)
 
+// todo: fix copy function for output byte array (current: copying an array of characters => desired: copy byte array in string form)
 const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn, username}) => {
 
 
