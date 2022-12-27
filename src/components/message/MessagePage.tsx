@@ -1,5 +1,6 @@
 import React from "react";
 import {Navigate, Outlet, useNavigate} from "react-router-dom";
+import MessageSideNavBar from "./MessageSideNavBar";
 
 interface MessagePageProps {
     loggedIn: boolean;
@@ -13,14 +14,17 @@ const MessagePage: React.FC<MessagePageProps> = ({loggedIn, username}) => {
     }
 
     return (
-        <>
-            <h3>Message</h3>
-            <button onClick={() => navigate("./send")}>Send</button>
-            <button onClick={() => navigate("./received")}>Received</button>
-            <button onClick={() => navigate("./sent")}>Sent</button>
-            <br/>
-            <Outlet/>
-        </>
+        <div className="message">
+            <div className="message__container gen-container">
+                <MessageSideNavBar />
+                <div
+                    id="message__outlet-container"
+                    className="gen-container"
+                >
+                    <Outlet/>
+                </div>
+            </div>
+        </div>
     );
 }
 

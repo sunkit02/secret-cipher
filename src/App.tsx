@@ -13,6 +13,7 @@ import "./css/login.css";
 import "./css/sign-up.css";
 import "./css/home.css";
 import "./css/encoder.css";
+import "./css/message.css";
 
 import ReceivedMessagePage from "./components/message/received/ReceivedMessagePage";
 import SentMessagePage from "./components/message/sent/SentMessagePage";
