@@ -7,7 +7,7 @@ import {
     EncodingRequest,
     EncodingResult,
     OperationType
-} from "../../models/models";
+} from "../../models/encoder-models";
 import {Client, Message, over} from "stompjs";
 import KeyInputBar from "./KeyInputBar";
 import InputOutputTextAreas from "./InputOutputTextAreas";
@@ -17,6 +17,8 @@ interface EncoderPageProps {
     loggedIn: boolean;
     username: string;
 }
+
+// todo: fix page crash when typing in textarea without connection
 
 // todo: optimize websocket connection to avoid reconnecting everytime the component is reloaded (lifting the state up?)
 
