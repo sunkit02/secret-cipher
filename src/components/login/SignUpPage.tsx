@@ -1,18 +1,17 @@
 import React, {useState} from "react";
-import {signUp} from "../../api/auth-service";
-import {User} from "../../api/models";
-import {MsgType, PopUpMessage} from "../../models/models";
+import {signUp} from "../../services/auth-service";
+import {User} from "../../services/models";
+import {PopUpMsgType, PopUpMessage} from "../../models/models";
 import {useNavigate} from "react-router-dom";
 
 const SignUpPage: React.FC = () => {
     let navigate = useNavigate();
 
-
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const [popUpMessage, setPopUpMessage] = useState<PopUpMessage>({type: MsgType.NONE});
+    const [popUpMessage, setPopUpMessage] = useState<PopUpMessage>({type: PopUpMsgType.NONE});
     const [disableSignUpBtn, setDisableSignUpBtn] = useState(false);
 
     const handleSignUp = async (e: React.FormEvent) => {
@@ -20,7 +19,7 @@ const SignUpPage: React.FC = () => {
 
         if (password !== confirmPassword) {
             setPopUpMessage({
-               type: MsgType.ERROR,
+               type: PopUpMsgType.ERROR,
                message: "Passwords don't match!"
             });
             return;
@@ -38,7 +37,7 @@ const SignUpPage: React.FC = () => {
             .then(r => {
                 console.log(`Successfully registered user ${r.user.username}`);
                 setPopUpMessage({
-                    type: MsgType.SUCCESS,
+                    type: PopUpMsgType.SUCCESS,
                     message: "Registration successful!"
                 });
 
@@ -48,7 +47,7 @@ const SignUpPage: React.FC = () => {
             })
             .catch(err => {
                 setPopUpMessage({
-                    type: MsgType.ERROR,
+                    type: PopUpMsgType.ERROR,
                     message: err,
                 });
 
@@ -56,7 +55,7 @@ const SignUpPage: React.FC = () => {
                 setDisableSignUpBtn(false);
 
                 setTimeout(() => {
-                    setPopUpMessage({type: MsgType.NONE})
+                    setPopUpMessage({type: PopUpMsgType.NONE})
                 }, 1500);
             });
     }
@@ -67,9 +66,9 @@ const SignUpPage: React.FC = () => {
                 <h2 className="sign-up__form-title"
                 >Please Fill In</h2>
                 {
-                    popUpMessage.type === MsgType.NONE
+                    popUpMessage.type === PopUpMsgType.NONE
                         ? (<div></div>)
-                        : popUpMessage.type === MsgType.ERROR ? (
+                        : popUpMessage.type === PopUpMsgType.ERROR ? (
                             <div className="login__pop-up-message error-message">{popUpMessage.message}</div>
                         ) : (
                             <div className="login__pop-up-message success-message">{popUpMessage.message}</div>

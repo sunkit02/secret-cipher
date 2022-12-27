@@ -20,7 +20,7 @@ import SendMessagePage from "./components/message/send/SendMessagePage";
 import LoginPage from "./components/login/LoginPage";
 import SignUpPage from "./components/login/SignUpPage";
 
-function App() {
+const App: React.FC = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [username, setUsername] = useState("Guest");
 
@@ -36,8 +36,8 @@ function App() {
             <div className="body">
                 <Routes>
                     <Route index element={<HomePage/>}/>
-                    <Route path="encoder" element={<EncoderPage loggedIn={loggedIn}/>}/>
-                    <Route path="message" element={<MessagePage loggedIn={loggedIn}/>}>
+                    <Route path="encoder" element={<EncoderPage loggedIn={loggedIn} username={username}/>}/>
+                    <Route path="message" element={<MessagePage loggedIn={loggedIn} username={username}/>}>
                         <Route path="send" element={<SendMessagePage />}/>
                         <Route path="received" element={<ReceivedMessagePage />}/>
                         <Route path="sent" element={<SentMessagePage />}/>

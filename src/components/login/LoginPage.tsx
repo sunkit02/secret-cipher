@@ -1,8 +1,8 @@
 import React, {useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {login} from "../../api/auth-service";
-import {User} from "../../api/models";
-import {MsgType, PopUpMessage} from "../../models/models";
+import {login} from "../../services/auth-service";
+import {User} from "../../services/models";
+import {PopUpMsgType, PopUpMessage} from "../../models/models";
 
 interface LoginPageProps {
     setUsername: React.Dispatch<React.SetStateAction<string>>;
@@ -21,7 +21,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
     const [usernameInput, setUsernameInput] = useState<string>("");
     const [passwordInput, setPasswordInput] = useState<string>("");
 
-    const [popUpMessage, setPopUpMessage] = useState<PopUpMessage>({type: MsgType.NONE});
+    const [popUpMessage, setPopUpMessage] = useState<PopUpMessage>({type: PopUpMsgType.NONE});
 
     const formRef = useRef<HTMLFormElement>(null);
     const handleLogin = async (e: React.FormEvent) => {
@@ -38,7 +38,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
 
                 // show login success popup message
                 setPopUpMessage({
-                    type: MsgType.SUCCESS,
+                    type: PopUpMsgType.SUCCESS,
                     message: "Login success!"
                 })
 
@@ -56,7 +56,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
 
                 // show error as popup message
                 setPopUpMessage({
-                    type: MsgType.ERROR,
+                    type: PopUpMsgType.ERROR,
                     message: err,
                 });
                 // @ts-ignore
@@ -65,7 +65,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
                 // hide popup message
                 setTimeout(() => {
                         setPopUpMessage({
-                            type: MsgType.NONE
+                            type: PopUpMsgType.NONE
                         })
                     }
                     , 1500)
@@ -83,9 +83,9 @@ const LoginPage: React.FC<LoginPageProps> = ({
                 <h2 className="login__form-title"
                 >Please Enter</h2>
                 {
-                    popUpMessage.type === MsgType.NONE
+                    popUpMessage.type === PopUpMsgType.NONE
                         ? (<div></div>)
-                        : popUpMessage.type === MsgType.ERROR ? (
+                        : popUpMessage.type === PopUpMsgType.ERROR ? (
                             <div className="login__pop-up-message error-message">{popUpMessage.message}</div>
                         ) : (
                             <div className="login__pop-up-message success-message">{popUpMessage.message}</div>

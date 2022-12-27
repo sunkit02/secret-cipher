@@ -1,48 +1,128 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect, useState} from "react";
 import {Navigate} from "react-router-dom";
-import {TbArrowsRight} from "react-icons/tb";
-
-import TextAreaAutoResize from "react-textarea-autosize";
-import {decodeString, encodeString} from "../../services/encoding-service";
+import {SOCKET_URL} from "../../services/websocket-service";
+import {
+    Channel, DecodingRequest,
+    DecodingResult,
+    EncodingRequest,
+    EncodingResult,
+    OperationType
+} from "../../models/models";
+import {Client, Message, over} from "stompjs";
+import KeyInputBar from "./KeyInputBar";
+import InputOutputTextAreas from "./InputOutputTextAreas";
+import SockJS from "sockjs-client";
 
 interface EncoderPageProps {
     loggedIn: boolean;
+    username: string;
 }
 
-const enum OperationType {
-    ENCODE = "ENCODE",
-    DECODE = "DECODE"
-}
+// todo: optimize websocket connection to avoid reconnecting everytime the component is reloaded (lifting the state up?)
 
-const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn}) => {
+const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn, username}) => {
+
+
+    const [connected, setConnected] = useState<boolean>(false);
     const [operationType, setOperationType] = useState<OperationType>(OperationType.ENCODE);
-    const [input, setInput] = useState("");
-    const [output, setOutput] = useState("");
+    const [textAreaHeight, setTextAreaHeight] = useState<number>(200);
     const [key, setKey] = useState<string>("");
 
-    const [textAreaHeight, setTextAreaHeight] = useState<number>(200);
+    const [input, setInput] = useState<string>("");
+    const [output, setOutput] = useState<string>("");
+    const [copyOutput, setCopyOutput] = useState<number[] | string>([]);
+
+    // @ts-ignore
+    const [stompClient, ] = useState<Client | null>(over(new SockJS(SOCKET_URL)));
 
 
-    if (!loggedIn) {
-        return <Navigate to={"/login"}/>
+    const onConnected = () => {
+        console.log("socket connected")
+
+        // @ts-ignore
+        for (let channel of channels) {
+            stompClient.subscribe(channel.route, channel.callBack);
+        }
+    };
+
+    const onError = () => {
+        console.log("An error occurred...");
     }
 
+    const connectToServer = () => {
+        if (!connected) {
+            stompClient.connect({}, onConnected, onError);
+            setConnected(true);
+        }
+    };
+
+    // todo: make this not reconnect on every refresh
+    useEffect(() => {
+        connectToServer();
+    }, []);
+
+    // @ts-ignore
+    const onEncodingResultReceived = (message: Message) => {
+        let encodingResult: EncodingResult = JSON.parse(message.body);
+        setOutput(encodingResult.encodedString);
+        setCopyOutput(encodingResult.encodedBytes);
+    }
+
+    // @ts-ignore
+    const onDecodingResultReceived = (message: Message) => {
+        let decodingResult: DecodingResult = JSON.parse(message.body);
+        setOutput(decodingResult.decodedString);
+        setCopyOutput(decodingResult.decodedBytes);
+    }
+    // @ts-ignore
+    const [channels, ] = useState<Channel[]>([
+        {
+            route: "/user/topic/private-encode",
+            callBack: onEncodingResultReceived
+        },
+        {
+            route: "/user/topic/private-decode",
+            callBack: onDecodingResultReceived
+        }
+    ]);
+
+
+    // handles user input to the input text area
     const handleInputChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let height = e.target.scrollHeight;
         let text = e.target.value;
 
-        setInput(text);
-        if (operationType === OperationType.ENCODE) {
-            setOutput(encodeString(text, key));
-        } else {
-            setOutput(decodeString(text, key));
-        }
+        // updates the rendered input value
+        // and sends encoding or decoding request to the server via websocket
+        setInput(() => {
+            if (operationType === OperationType.ENCODE) {
+                let encodingRequest: EncodingRequest = {
+                    key,
+                    username,
+                    message: text
+                }
+                sendEncodingRequest(encodingRequest);
+            } else {
+                let decodingRequest: DecodingRequest = {
+                    key,
+                    message: text,
+                    username
+                }
+                sendDecodingRequest(decodingRequest);
+            }
+            return text;
+        });
+
+        // updates the text area height for both input and output text areas
         setTextAreaHeight(height);
     }
 
+
+    // updates the operation type state when user selection changes
     const handleOperationTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
         let newOperationType = e.target.value;
-        console.log(newOperationType);
+        console.info(`New encoding mode: "${newOperationType}"`);
+
         if (newOperationType === OperationType.ENCODE) {
             setOperationType(OperationType.ENCODE);
         } else {
@@ -50,89 +130,53 @@ const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn}) => {
         }
     };
 
+
+    // send new message to the server
+    const sendEncodingRequest = (encodingPayload: EncodingRequest) => {
+        if (encodingPayload != null) {
+            stompClient.send(
+                "/app/private-encode",
+                {},
+                JSON.stringify(encodingPayload));
+        }
+    };
+
+
+    // send new message to the server
+    const sendDecodingRequest = (decodingPayload: DecodingRequest) => {
+        if (decodingPayload != null) {
+            stompClient.send(
+                "/app/private-decode",
+                {},
+                JSON.stringify(decodingPayload)
+            );
+        }
+    };
+
+    if (!loggedIn) {
+        console.error("User is not logged in. Redirecting to login page...");
+        return <Navigate to={"/login"}/>
+    }
+
     return (
         <article className="encoder">
             <h3>Encoder</h3>
-
-            <div className="encoder__key-input-container">
-                <input
-                    className="encoder__key-input gen-text-input"
-                    type="text"
-                    onChange={(e) => setKey(e.target.value)}
-                    placeholder="Enter key here"
-                    value={key}
-                />
-                <label className="encoder__operation-type">
-                    <input
-                        className="encoder__operation-type"
-                        type="radio"
-                        name="operation-type"
-                        value={OperationType.ENCODE}
-                        onChange={handleOperationTypeChange}
-                        checked={operationType === OperationType.ENCODE}
-                    />
-                    Encode
-                </label>
-
-                <label className="encoder__operation-type">
-                    <input
-                        className="encoder__operation-type"
-                        type="radio"
-                        name="operation-type"
-                        value={OperationType.DECODE}
-                        onChange={handleOperationTypeChange}
-                        checked={operationType === OperationType.DECODE}
-                    />
-                    Decode
-                </label>
-            </div>
-            <div className="encoder__input-container gen-container">
-                <div className="encoder__input-title-container">
-                    <span className="encoder__input-title">
-                        {operationType === OperationType.ENCODE
-                            ? "Decoded"
-                            : "Encoded"}
-                    </span>
-                    <span className="encoder__input-arrow">
-                    <TbArrowsRight style={{fontSize: "1.2rem"}}/>
-                </span>
-                    <span className="encoder__input-title">
-                        {operationType === OperationType.ENCODE
-                        ? "Encoded"
-                        : "Decoded"}
-                    </span>
-
-                </div>
-                <div className="encoder__textarea-container">
-                    <TextAreaAutoResize
-                        className="encoder__text-area"
-                        onChange={handleInputChange}
-                        onHeightChange={h => setTextAreaHeight(h)}
-                        style={{
-                            width: "50%",
-                            resize: "none",
-                            overflow: "hidden",
-                            backgroundColor: "ghostwhite",
-                            height: textAreaHeight,
-                            border: "none",
-                            borderRadius: "0 0 0 5px"
-                        }}
-                        placeholder="Enter message here"
-                        value={input}
-                    />
-                    <div
-                        id="encoder__output"
-                        className="encoder__text-area"
-                        style={{height: textAreaHeight}}
-                    >
-                        {output}
-                    </div>
-                </div>
-            </div>
+            <KeyInputBar
+                encodeKey={key}
+                setKey={setKey}
+                operationType={operationType}
+                handleOperationTypeChange={handleOperationTypeChange}
+            />
+            <InputOutputTextAreas operationType={operationType}
+                                  input={input}
+                                  handleInputChange={handleInputChange}
+                                  textAreaHeight={textAreaHeight}
+                                  setTextAreaHeight={setTextAreaHeight}
+                                  output={output}
+                                  copyOutput={copyOutput}
+            />
         </article>
     );
 }
-
-// todo: implement encoding and decoding logic
 
 export default EncoderPage;

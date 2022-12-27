@@ -86,10 +86,26 @@
   background-color: ghostwhite;
 }
 
+.encoder__textarea-sub-container {
+  width: 50%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  flex-flow: column nowrap;
+
+  padding-bottom: .5rem;
+}
+
+#encoder__textarea-right-sub-container {
+  border-left: 1px solid grey;
+}
+
 .encoder__text-area {
   font-size: 0.8rem;
   font-family: inherit;
-  width: 50%;
+  width: 100%;
   min-height: 50vh;
   padding: 1rem;
 }
@@ -102,10 +118,27 @@
 #encoder__output {
   height: 100%;
   background-color: ghostwhite;
-  border-left: 1px solid grey;
-
   border-radius: 0 0 5px 0;
 
   word-wrap: break-word;
   word-break: break-word;
+}
+
+.encoder__copy-btn {
+  display:flex;
+  padding: 0.2rem;
+  border-radius: 3px;
+
+  margin-right: 0.7rem;
+
+  transition: 0.2s;
+}
+
+.encoder__copy-btn:hover {
+  background-color: #e7e7e7;
+  cursor: pointer;
+}
+
+.encoder__copy-btn:active {
+  background-color: #d0d0d0;
 }

@@ -3,8 +3,9 @@ import {Navigate, Outlet, useNavigate} from "react-router-dom";
 
 interface MessagePageProps {
     loggedIn: boolean;
+    username: string;
 }
-const MessagePage: React.FC<MessagePageProps> = ({loggedIn}) => {
+const MessagePage: React.FC<MessagePageProps> = ({loggedIn, username}) => {
     const navigate = useNavigate();
 
     if (!loggedIn) {
