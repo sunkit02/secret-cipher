@@ -15,16 +15,19 @@ import "./css/home.css";
 import "./css/encoder.css";
 import "./css/message.css";
 
-import ReceivedMessagePage from "./components/message/received/ReceivedMessagePage";
-import SentMessagePage from "./components/message/sent/SentMessagePage";
-import SendMessagePage from "./components/message/send/SendMessagePage";
+import ReceivedMessageTab from "./components/message/received/ReceivedMessageTab";
+import SentMessageTab from "./components/message/sent/SentMessageTab";
+import SendNewMessageTab from "./components/message/send/SendNewMessageTab";
 import LoginPage from "./components/login/LoginPage";
 import SignUpPage from "./components/login/SignUpPage";
+import {SecretMessage} from "./models/message-models";
 
 const App: React.FC = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [username, setUsername] = useState("Guest");
 
+
+    const [messagesSent, setMessagesSent] = useState<SecretMessage[]>([]);
 
     return (
         <>
@@ -39,9 +42,9 @@ const App: React.FC = () => {
                     <Route index element={<HomePage/>}/>
                     <Route path="encoder" element={<EncoderPage loggedIn={loggedIn} username={username}/>}/>
                     <Route path="message" element={<MessagePage loggedIn={loggedIn} username={username}/>}>
-                        <Route path="send" element={<SendMessagePage />}/>
-                        <Route path="received" element={<ReceivedMessagePage />}/>
-                        <Route path="sent" element={<SentMessagePage />}/>
+                        <Route path="send" element={<SendNewMessageTab username={username} messagesSent={messagesSent} setMessagesSent={setMessagesSent}/>}/>
+                        <Route path="received" element={<ReceivedMessageTab />}/>
+                        <Route path="sent" element={<SentMessageTab />}/>
                     </Route>
                     <Route path="login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} setUsername={setUsername}/>}/>
                     <Route path="signup" element={<SignUpPage/>}/>

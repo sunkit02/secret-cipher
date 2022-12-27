@@ -1,6 +1,6 @@
 import {Buffer} from "buffer";
 import {ENCODING_URL} from "./web-config";
-import {EncodingKeyType, EncodingRequest, EncodingResult} from "../models/models";
+import {EncodingKeyType, EncodingRequest, EncodingResult} from "../models/encoder-models";
 
 /**
  * Encodes string via caesar cipher with key provided

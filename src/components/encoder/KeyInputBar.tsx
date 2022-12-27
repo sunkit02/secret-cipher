@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import {OperationType} from "../../models/models";
+import {OperationType} from "../../models/encoder-models";
 
 interface KeyInputBarProps {
     encodeKey: string;

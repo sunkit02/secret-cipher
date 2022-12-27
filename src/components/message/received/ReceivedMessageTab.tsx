@@ -1,6 +1,6 @@
 import React from "react";
 
-const ReceivedMessagePage: React.FC = () => {
+const ReceivedMessageTab: React.FC = () => {
     return (
         <>
             Received messages
@@ -8,4 +8,4 @@ const ReceivedMessagePage: React.FC = () => {
     );
 }
 
-export default ReceivedMessagePage;
+export default ReceivedMessageTab;

@@ -78,7 +78,9 @@ header {
 }
 
 .gen-btn:focus {
-  outline: 2px solid var(--DARK-COLOR);
+  /*outline: 2px solid var(--DARK-COLOR);*/
+  outline: none;
+  transform: scale(1.02);
 }
 
 /*  button with rounded corners  */

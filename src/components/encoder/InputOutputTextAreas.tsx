@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import {OperationType} from "../../models/models";
+import {OperationType} from "../../models/encoder-models";
 import {TbArrowsRight} from "react-icons/tb";
 import TextAreaAutoResize from "react-textarea-autosize";
 import {MdContentCopy} from "react-icons/md";

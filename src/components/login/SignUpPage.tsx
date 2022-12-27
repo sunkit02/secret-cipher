@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {signUp} from "../../services/auth-service";
 import {User} from "../../services/models";
-import {PopUpMsgType, PopUpMessage} from "../../models/models";
+import {PopUpMsgType, PopUpMessage} from "../../models/encoder-models";
 import {useNavigate} from "react-router-dom";
 
 const SignUpPage: React.FC = () => {
