@@ -1,24 +1,13 @@
 import {Message} from "stompjs";
 
-const enum PopUpMsgType {
-    "ERROR",
-    "SUCCESS",
-    NONE
-}
-
-type PopUpMessage = {
-    type: PopUpMsgType,
-    message?: string,
-}
-
 const enum OperationType {
     ENCODE = "ENCODE",
     DECODE = "DECODE"
 }
 
 const enum EncodingKeyType {
-    STRING="STRING",
-    NUM_ARRAY="NUM_ARRAY"
+    STRING = "STRING",
+    NUM_ARRAY = "NUM_ARRAY"
 }
 
 type EncodingRequest = {
@@ -57,11 +46,10 @@ type DecodingResult = {
 }
 
 
-
 export {
-    PopUpMsgType, SocketMessageType,
+    SocketMessageType,
     EncodingKeyType, OperationType
 }
-export type { EncodingRequest, DecodingRequest }
-export type { PopUpMessage, EncodingResult, DecodingResult };
+export type {EncodingRequest, DecodingRequest}
+export type {EncodingResult, DecodingResult};
 

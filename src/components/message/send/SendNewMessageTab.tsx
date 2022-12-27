@@ -1,6 +1,7 @@
 import React, {useRef, useState} from "react";
 import {SecretMessage} from "../../../models/message-models";
 import {sendNewMessage} from "../../../services/message-service";
+import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
 
 interface SendNewMassageTabProps {
     username: string;
@@ -13,13 +14,15 @@ const SendNewMessageTab: React.FC<SendNewMassageTabProps> = ({
                                                                  messagesSent,
                                                                  setMessagesSent
                                                              }) => {
+    const [popUpMessage, setPopUpMessage] = useState<PopUpMessage>({type: PopUpMsgType.NONE});
+
     const [recipient, setRecipient] = useState<string>("");
     const [encodingKey, setEncodingKey] = useState<string>("");
     const [message, setMessage] = useState<string>("");
 
     const formRef = useRef<HTMLFormElement>(null);
 
-    const handleSendMessage = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         let newMessage: SecretMessage = {
             senderUsername: username,
@@ -28,14 +31,36 @@ const SendNewMessageTab: React.FC<SendNewMassageTabProps> = ({
             message
         };
 
-        sendNewMessage(newMessage)
+        await sendNewMessage(newMessage)
             .then(message => {
                 console.log("Message sent successfully!")
+                console.log(message)
                 setMessagesSent([...messagesSent, message]);
                 // @ts-ignore
                 formRef.current.reset();
+                setRecipient("");
+                setEncodingKey("");
+                setMessage("");
+                setPopUpMessage({
+                    type: PopUpMsgType.SUCCESS,
+                    message: "Message sent successfully!"
+                });
+
+                setTimeout(() => {
+                    setPopUpMessage({type: PopUpMsgType.NONE})
+                }, 1500)
+
             })
-            .catch(error => console.error(error));
+            .catch(errorMessage => {
+                console.log(errorMessage)
+                setPopUpMessage({
+                    type: PopUpMsgType.ERROR,
+                    message: errorMessage
+                });
+                setTimeout(() => {
+                    setPopUpMessage({type: PopUpMsgType.NONE})
+                }, 1500);
+            });
     }
 
 
@@ -43,6 +68,15 @@ const SendNewMessageTab: React.FC<SendNewMassageTabProps> = ({
         <section className="message__send-new__container">
             <h3 className="message__send-new__title">
                 New Message</h3>
+            {
+                popUpMessage.type === PopUpMsgType.NONE
+                    ? (<div></div>)
+                    : popUpMessage.type === PopUpMsgType.ERROR ? (
+                        <div className="login__pop-up-message error-message">{popUpMessage.message}</div>
+                    ) : (
+                        <div className="login__pop-up-message success-message">{popUpMessage.message}</div>
+                    )
+            }
             <form
                 ref={formRef}
                 className="message__send-new__message-form"

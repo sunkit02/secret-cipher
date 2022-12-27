@@ -2,7 +2,7 @@ import React, {useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {login} from "../../services/auth-service";
 import {User} from "../../services/models";
-import {PopUpMsgType, PopUpMessage} from "../../models/encoder-models";
+import {PopUpMsgType, PopUpMessage} from "../../models/popup-models";
 
 interface LoginPageProps {
     setUsername: React.Dispatch<React.SetStateAction<string>>;

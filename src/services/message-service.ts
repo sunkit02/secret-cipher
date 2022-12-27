@@ -7,10 +7,18 @@ async function sendNewMessage(message: SecretMessage): Promise<SecretMessage> {
     return fetch(SEND_NEW_MESSAGE_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Accept": "application/json"
         },
         body: JSON.stringify(message)
-    }).then(response => response.json())
+    }).then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        return response.text().then(errorMessage => {
+            return Promise.reject<string>(errorMessage);
+        });
+    })
 }
 
 export {sendNewMessage};

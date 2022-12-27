@@ -157,7 +157,7 @@ const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn, username}) => {
     };
 
     if (!loggedIn) {
-        console.error("User is not logged in. Redirecting to login page...");
+        console.info("User is not logged in. Redirecting to login page...");
         return <Navigate to={"/login"}/>
     }
 
