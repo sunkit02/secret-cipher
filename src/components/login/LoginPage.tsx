@@ -10,6 +10,8 @@ interface LoginPageProps {
     setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+// todo: implement feature to redirect user back to page requiring login after successful login if was redirected when accessing another page
+
 const LoginPage: React.FC<LoginPageProps> = ({
                                                  setUsername,
                                                  loggedIn,
