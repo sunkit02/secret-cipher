@@ -1,9 +1,29 @@
+interface SendNewMessageRequest {
+    senderUsername: string;
+    recipientUsername: string;
+    key: string;
+    subject: string;
+    message: string;
+}
 
-interface SecretMessage {
+interface Message {
+    id: number;
+    senderUsername: string;
+    recipientUsername: string;
+    message: string;
+
+    // todo: implement timestamp
+}
+interface MessageSent extends Message{
+    id: number;
     senderUsername: string;
     recipientUsername: string;
     key: string;
     message: string;
 }
 
-export type {SecretMessage};
+interface MessageReceived extends Message {
+
+}
+
+export type {MessageSent, SendNewMessageRequest, MessageReceived, Message};

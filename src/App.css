@@ -76,6 +76,7 @@ header {
 .gen-btn:hover {
   background-color: var(--BUTTON-HOVER-COLOR);
   cursor: pointer;
+  transform: scale(1.03);
 }
 
 .gen-btn:focus {

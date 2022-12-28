@@ -20,14 +20,15 @@ import SentMessageTab from "./components/message/sent/SentMessageTab";
 import SendNewMessageTab from "./components/message/send/SendNewMessageTab";
 import LoginPage from "./components/login/LoginPage";
 import SignUpPage from "./components/login/SignUpPage";
-import {SecretMessage} from "./models/message-models";
+import {MessageSent} from "./models/message-models";
 
 const App: React.FC = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [username, setUsername] = useState("Guest");
 
 
-    const [messagesSent, setMessagesSent] = useState<SecretMessage[]>([]);
+    const [messagesSent, setMessagesSent] = useState<MessageSent[]>([]);
+    const [messagesReceived, setMessagesReceived] = useState<MessageSent[]>([]);
 
     return (
         <>
@@ -43,8 +44,8 @@ const App: React.FC = () => {
                     <Route path="encoder" element={<EncoderPage loggedIn={loggedIn} username={username}/>}/>
                     <Route path="message" element={<MessagePage loggedIn={loggedIn} username={username}/>}>
                         <Route path="send" element={<SendNewMessageTab username={username} messagesSent={messagesSent} setMessagesSent={setMessagesSent}/>}/>
-                        <Route path="received" element={<ReceivedMessageTab />}/>
-                        <Route path="sent" element={<SentMessageTab />}/>
+                        <Route path="received" element={<ReceivedMessageTab messagesReceived={messagesReceived} setMessagesReceived={setMessagesReceived} />}/>
+                        <Route path="sent" element={<SentMessageTab messagesSent={messagesSent} setMessagesSent={setMessagesSent} />}/>
                     </Route>
                     <Route path="login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} setUsername={setUsername}/>}/>
                     <Route path="signup" element={<SignUpPage/>}/>

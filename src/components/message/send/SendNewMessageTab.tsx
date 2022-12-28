@@ -1,12 +1,12 @@
 import React, {useRef, useState} from "react";
-import {SecretMessage, SendNewMessageRequest} from "../../../models/message-models";
+import {MessageSent, SendNewMessageRequest} from "../../../models/message-models";
 import {sendNewMessage} from "../../../services/message-service";
 import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
 
 interface SendNewMessageTabProps {
     username: string;
-    messagesSent: SecretMessage[];
-    setMessagesSent: React.Dispatch<React.SetStateAction<SecretMessage[]>>
+    messagesSent: MessageSent[];
+    setMessagesSent: React.Dispatch<React.SetStateAction<MessageSent[]>>
 }
 
 const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
