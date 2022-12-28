@@ -26,8 +26,8 @@ const SignUpPage: React.FC = () => {
         }
 
         let newUser: User = {
-            username,
-            password
+            username: username.trim(),
+            password: password.trim()
         }
 
         // todo: disable sign up button
