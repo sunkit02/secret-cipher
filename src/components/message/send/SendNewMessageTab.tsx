@@ -20,6 +20,8 @@ const SendNewMessageTab: React.FC<SendNewMassageTabProps> = ({
     const [encodingKey, setEncodingKey] = useState<string>("");
     const [message, setMessage] = useState<string>("");
 
+    const [disableSend, setDisableSend] = useState<boolean>(false);
+
     const formRef = useRef<HTMLFormElement>(null);
 
     const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,36 +33,45 @@ const SendNewMessageTab: React.FC<SendNewMassageTabProps> = ({
             message
         };
 
-        await sendNewMessage(newMessage)
-            .then(message => {
-                console.log("Message sent successfully!")
-                console.log(message)
-                setMessagesSent([...messagesSent, message]);
-                // @ts-ignore
-                formRef.current.reset();
-                setRecipient("");
-                setEncodingKey("");
-                setMessage("");
-                setPopUpMessage({
-                    type: PopUpMsgType.SUCCESS,
-                    message: "Message sent successfully!"
-                });
+        setDisableSend(true);
+        setTimeout(() => {
+            sendNewMessage(newMessage)
+                .then(message => {
+                    console.log("Message sent successfully!")
+                    console.log(message)
+                    setMessagesSent([...messagesSent, message]);
+                    // @ts-ignore
+                    formRef.current.reset();
+                    setRecipient("");
+                    setEncodingKey("");
+                    setMessage("");
+                    setPopUpMessage({
+                        type: PopUpMsgType.SUCCESS,
+                        message: "Message sent successfully!"
+                    });
 
-                setTimeout(() => {
-                    setPopUpMessage({type: PopUpMsgType.NONE})
-                }, 1500)
+                    setDisableSend(false);
 
-            })
-            .catch(errorMessage => {
-                console.log(errorMessage)
-                setPopUpMessage({
-                    type: PopUpMsgType.ERROR,
-                    message: errorMessage
+                    setTimeout(() => {
+                        setPopUpMessage({type: PopUpMsgType.NONE})
+                    }, 3000)
+
+                })
+                .catch(errorMessage => {
+                    console.log(errorMessage)
+
+                    setPopUpMessage({
+                        type: PopUpMsgType.ERROR,
+                        message: errorMessage
+                    });
+
+                    setDisableSend(false);
+
+                    setTimeout(() => {
+                        setPopUpMessage({type: PopUpMsgType.NONE})
+                    }, 3000);
                 });
-                setTimeout(() => {
-                    setPopUpMessage({type: PopUpMsgType.NONE})
-                }, 1500);
-            });
+            }, 500)
     }
 
 
@@ -106,7 +117,12 @@ const SendNewMessageTab: React.FC<SendNewMassageTabProps> = ({
                 <button
                     className="message__send-new__send-btn
                                 gen-btn rounded-btn"
-                >Send Message
+                    disabled={disableSend}
+                >{
+                    disableSend
+                    ? "Sending Message..."
+                        : "Send Message"
+                }
                 </button>
             </form>
         </section>

@@ -18,6 +18,7 @@
   /*  Button Properties  */
   --BUTTON-COLOR: #1d7dc9;
   --BUTTON-HOVER-COLOR: #2374d0;
+  --BUTTON-DISABLED-COLOR: #275c93
 }
 
 * {
@@ -81,6 +82,10 @@ header {
   /*outline: 2px solid var(--DARK-COLOR);*/
   outline: none;
   transform: scale(1.02);
+}
+
+.gen-btn:disabled {
+  background-color: var(--BUTTON-DISABLED-COLOR);
 }
 
 /*  button with rounded corners  */
