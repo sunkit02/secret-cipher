@@ -1,6 +1,15 @@
 import React from "react";
+import {SecretMessage} from "../../../models/message-models";
 
-const ReceivedMessageTab: React.FC = () => {
+interface ReceivedMessageTabProps {
+    messagesReceived: SecretMessage[];
+    setMessagesReceived: React.Dispatch<React.SetStateAction<SecretMessage[]>>
+}
+
+const ReceivedMessageTab: React.FC<ReceivedMessageTabProps> = ({
+                                                                   messagesReceived,
+                                                                   setMessagesReceived
+                                                               }) => {
     return (
         <>
             Received messages
