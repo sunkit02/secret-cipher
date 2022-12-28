@@ -1,15 +1,15 @@
 import React, {useRef, useState} from "react";
-import {SecretMessage} from "../../../models/message-models";
+import {SecretMessage, SendNewMessageRequest} from "../../../models/message-models";
 import {sendNewMessage} from "../../../services/message-service";
 import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
 
-interface SendNewMassageTabProps {
+interface SendNewMessageTabProps {
     username: string;
     messagesSent: SecretMessage[];
     setMessagesSent: React.Dispatch<React.SetStateAction<SecretMessage[]>>
 }
 
-const SendNewMessageTab: React.FC<SendNewMassageTabProps> = ({
+const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
                                                                  username,
                                                                  messagesSent,
                                                                  setMessagesSent
@@ -18,6 +18,7 @@ const SendNewMessageTab: React.FC<SendNewMassageTabProps> = ({
 
     const [recipient, setRecipient] = useState<string>("");
     const [encodingKey, setEncodingKey] = useState<string>("");
+    const [subject, setSubject] = useState<string>("");
     const [message, setMessage] = useState<string>("");
 
     const [disableSend, setDisableSend] = useState<boolean>(false);
@@ -26,11 +27,12 @@ const SendNewMessageTab: React.FC<SendNewMassageTabProps> = ({
 
     const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let newMessage: SecretMessage = {
-            senderUsername: username,
-            recipientUsername: recipient,
-            key: encodingKey,
-            message
+        let newMessage: SendNewMessageRequest = {
+            senderUsername: username.trim(),
+            recipientUsername: recipient.trim(),
+            key: encodingKey.trim(),
+            subject: subject.trim(),
+            message: message.trim()
         };
 
         setDisableSend(true);
@@ -107,6 +109,13 @@ const SendNewMessageTab: React.FC<SendNewMassageTabProps> = ({
                     placeholder="Encoding key"
                     className="message__send-new__input gen-text-input"
                     onChange={e => setEncodingKey(e.target.value)}
+                />
+                <input
+                    type="text"
+                    name="subject"
+                    placeholder="Subject"
+                    className="message__send-new__input gen-text-input"
+                    onChange={e => setSubject(e.target.value)}
                 />
                 <textarea
                     name="message"
