@@ -1,7 +1,7 @@
 import React, {useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {login} from "../../services/auth-service";
-import {User} from "../../services/models";
+import {User} from "../../models/models";
 import {PopUpMsgType, PopUpMessage} from "../../models/popup-models";
 
 interface LoginPageProps {

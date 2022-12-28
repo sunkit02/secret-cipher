@@ -103,8 +103,9 @@
 .message__sent__container {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: stretch;
-
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   padding: 1rem;
   width: 100%;
   height: 100%;
@@ -113,10 +114,10 @@
 .message__sent__title {
   font-family: var(--CURSIVE-FAMILY);
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
-.message__sent__searchbar {
+.message__sent__searchbar-container {
   width: 100%;
 }
 
@@ -129,15 +130,50 @@
 }
 
 .message__sent__searchbar-input {
-  width: 70%;
+  width: 65%;
   padding: 0.3rem;
-
+  font-size: inherit;
   font-family: var(--CURSIVE-FAMILY);
 }
 
 .message__sent__searchbar-btn {
-  padding: 0.4rem 1rem
+  padding: 0.5rem 1.5rem;
+  font-size: inherit;
 }
 
+/*  Messages Sent List  */
+
+.message__sent__message-list {
+  width: 95%;
+  height: 90%;
+}
+
+#message__sent__message-list {
+  background-color: ghostwhite;
+  /*background-color: var(--LIGHT-COLOR);*/
+}
+
+/*  Message Sent Card  */
+
+.message__sent__message-card {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.message__sent__message-card-recipient {
+  display: inline-block;
+  text-overflow: ellipsis;
+}
+
+.message__sent__message-card-subject {
+  display: inline-block;
+  text-overflow: ellipsis;
+}
+
+.message__sent__message-card-message {
+  display: inline-block;
+  text-overflow: ellipsis;
+  width: 10px;
+}
 
 

@@ -1,4 +1,4 @@
-import {LoginResponse, SignUpResponse, User} from "./models";
+import {LoginResponse, SignUpResponse, User} from "../models/models";
 
 
 const tempUsers: User[] = [

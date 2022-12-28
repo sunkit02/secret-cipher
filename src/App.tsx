@@ -45,7 +45,7 @@ const App: React.FC = () => {
                     <Route path="message" element={<MessagePage loggedIn={loggedIn} username={username}/>}>
                         <Route path="send" element={<SendNewMessageTab username={username} messagesSent={messagesSent} setMessagesSent={setMessagesSent}/>}/>
                         <Route path="received" element={<ReceivedMessageTab messagesReceived={messagesReceived} setMessagesReceived={setMessagesReceived} />}/>
-                        <Route path="sent" element={<SentMessageTab messagesSent={messagesSent} setMessagesSent={setMessagesSent} />}/>
+                        <Route path="sent" element={<SentMessageTab username={username} messagesSent={messagesSent} setMessagesSent={setMessagesSent} />}/>
                     </Route>
                     <Route path="login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} setUsername={setUsername}/>}/>
                     <Route path="signup" element={<SignUpPage/>}/>

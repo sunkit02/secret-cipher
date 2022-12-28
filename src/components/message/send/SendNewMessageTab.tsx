@@ -1,7 +1,8 @@
 import React, {useRef, useState} from "react";
-import {MessageSent, SendNewMessageRequest} from "../../../models/message-models";
+import {MessageSent} from "../../../models/message-models";
 import {sendNewMessage} from "../../../services/message-service";
 import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
+import {SendNewMessageRequest} from "../../../models/payload-models";
 
 interface SendNewMessageTabProps {
     username: string;
@@ -46,6 +47,7 @@ const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
                     formRef.current.reset();
                     setRecipient("");
                     setEncodingKey("");
+                    setSubject("");
                     setMessage("");
                     setPopUpMessage({
                         type: PopUpMsgType.SUCCESS,
