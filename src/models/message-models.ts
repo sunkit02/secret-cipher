@@ -15,6 +15,7 @@ interface MessageSent extends Message{
     recipientUsername: string;
     key: string;
     message: string;
+    timeSent: string;
 }
 
 interface MessageReceived extends Message {

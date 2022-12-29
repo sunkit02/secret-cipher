@@ -5,6 +5,7 @@ import MessagesSentList from "./MessagesSentList";
 import {fetchSentMessages} from "../../../services/message-service";
 import {GetMessagesSentRequest} from "../../../models/payload-models";
 import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
+import {parseErrorMessage} from "../../../utils/error-utils";
 
 interface SentMessagesTabProps {
     username: string;
@@ -19,22 +20,6 @@ const SentMessageTab: React.FC<SentMessagesTabProps> = ({
                                                         }) => {
     const [popUpMessage, setPopUpMessage] = useState<PopUpMessage>({type: PopUpMsgType.NONE});
     const [filteredMessagesSent, setFilteredMessagesSent] = useState<MessageSent[]>(messagesSent);
-
-    const parseErrorMessage = (errorMessage: any) => {
-        let result: string | null = null;
-        // ensure that the error message is a string
-        // and convert to string if not
-        if (typeof errorMessage !== "string") {
-            try {
-                result = errorMessage?.toString();
-            } catch (e) {
-                // default error message if cannot call toString method
-                result = "An error occurred"
-            }
-        }
-
-        return result === null ? errorMessage : result;
-    }
 
     const messagesEqual = (a: MessageSent[], b: MessageSent[]) => {
         return a.length === b.length &&
@@ -51,7 +36,13 @@ const SentMessageTab: React.FC<SentMessagesTabProps> = ({
             // update sent message list if not equal
             // todo: optimize solution
             .then(sentMessages => {
-                console.log(sentMessages);
+                console.log("Before sort: ", sentMessages);
+                sentMessages = sentMessages.sort((a, b) => {
+                    let date1 = new Date(a.timeSent).getTime();
+                    let date2 = new Date(b.timeSent).getTime();
+                    return date1 > date2 ? -1 : date1 < date2 ? 1 : 0;
+                })
+                console.log("After sort: ", sentMessages);
                 if (!messagesEqual(sentMessages, messagesSent))
                     setMessagesSent(sentMessages);
             })
@@ -61,7 +52,7 @@ const SentMessageTab: React.FC<SentMessagesTabProps> = ({
                 errorMessage = parseErrorMessage(errorMessage);
                 setPopUpMessage({
                     type: PopUpMsgType.ERROR,
-                    message: errorMessage.toString()
+                    message: errorMessage
                 });
                 // set countdown for error message to disappear
                 setTimeout(() => {

@@ -1,8 +1,9 @@
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {MessageSent} from "../../../models/message-models";
 import {sendNewMessage} from "../../../services/message-service";
 import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
 import {SendNewMessageRequest} from "../../../models/payload-models";
+import {parseErrorMessage} from "../../../utils/error-utils";
 
 interface SendNewMessageTabProps {
     username: string;
@@ -22,9 +23,14 @@ const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
     const [subject, setSubject] = useState<string>("");
     const [message, setMessage] = useState<string>("");
 
-    const [disableSend, setDisableSend] = useState<boolean>(false);
+    const [isSendingMessage, setIsSendingMessage] = useState<boolean>(false);
 
     const formRef = useRef<HTMLFormElement>(null);
+    const recipientInputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        recipientInputRef.current?.focus();
+    }, [])
 
     const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -36,7 +42,7 @@ const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
             message: message.trim()
         };
 
-        setDisableSend(true);
+        setIsSendingMessage(true);
         setTimeout(() => {
             sendNewMessage(newMessage)
                 .then(message => {
@@ -54,7 +60,8 @@ const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
                         message: "Message sent successfully!"
                     });
 
-                    setDisableSend(false);
+                    setIsSendingMessage(false);
+                    recipientInputRef.current?.focus();
 
                     setTimeout(() => {
                         setPopUpMessage({type: PopUpMsgType.NONE})
@@ -64,12 +71,15 @@ const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
                 .catch(errorMessage => {
                     console.log(errorMessage)
 
+                    errorMessage = parseErrorMessage(errorMessage);
+
                     setPopUpMessage({
                         type: PopUpMsgType.ERROR,
                         message: errorMessage
                     });
 
-                    setDisableSend(false);
+                    setIsSendingMessage(false);
+                    recipientInputRef.current?.focus();
 
                     setTimeout(() => {
                         setPopUpMessage({type: PopUpMsgType.NONE})
@@ -99,6 +109,7 @@ const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
             >
 
                 <input
+                    ref={recipientInputRef}
                     type="text"
                     name="recipient-username"
                     placeholder="Recipient"
@@ -128,9 +139,9 @@ const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
                 <button
                     className="message__send-new__send-btn
                                 gen-btn rounded-btn"
-                    disabled={disableSend}
+                    disabled={isSendingMessage}
                 >{
-                    disableSend
+                    isSendingMessage
                     ? "Sending Message..."
                         : "Send Message"
                 }

@@ -7,7 +7,6 @@ interface MessagePageProps {
     username: string;
 }
 const MessagePage: React.FC<MessagePageProps> = ({loggedIn, username}) => {
-    const navigate = useNavigate();
 
     if (!loggedIn) {
         return <Navigate to="/login" />
