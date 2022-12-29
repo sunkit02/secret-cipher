@@ -2,7 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
 
 :root {
-  /*--BACKGROUND-COLOR: #B5D8E5;*/
   --BACKGROUND-COLOR: #ddebff;
   --CONTAINER-BACKGROUND-COLOR: #cce5ff;
 
@@ -19,7 +18,12 @@
   /*  Button Properties  */
   --BUTTON-COLOR: #1d7dc9;
   --BUTTON-HOVER-COLOR: #2374d0;
-  --BUTTON-DISABLED-COLOR: #275c93
+  --BUTTON-DISABLED-COLOR: #275c93;
+
+  /*  Scroll Bar Properties  */
+  --SCROLL-BAR-BACKGROUND: var(--LIGHT-COLOR);
+  --SCROLL-BAR-THUMB-COLOR: #a4d0ef;
+  --SCROLL-BAR-THUMB-HOVER-COLOR: #85bce7;
 }
 
 * {

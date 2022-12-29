@@ -33,7 +33,10 @@ const MessageSentCard: React.FC<MessageSentCardProps> = ({messageSent}) => {
                     className="message__sent__message-card__sent-time text--nowrap">{getDateString(new Date(messageSent.timeSent))}</span>
                 {
                     mouseOver ? (<span className="message__sent__message-card__expand-arrow">
-                                <IoIosArrowDown/>
+                                <IoIosArrowDown
+                                    style={{transition: "0.2s",
+                                            transform: "rotate(90deg)"}}
+                                />
                                 </span>)
                         : <></>
                 }
@@ -42,7 +45,7 @@ const MessageSentCard: React.FC<MessageSentCardProps> = ({messageSent}) => {
     } else {
         // render expanded card
         return (
-            <div>
+            <div className="message__sent__message-card-expanded">
                 <div
                     className="message__sent__message-card"
                     onClick={toggleExpanded}
@@ -58,15 +61,17 @@ const MessageSentCard: React.FC<MessageSentCardProps> = ({messageSent}) => {
                         className="message__sent__message-card__sent-time text--nowrap">{getDateString(new Date(messageSent.timeSent))}</span>
                     {
                         mouseOver ? (<span className="message__sent__message-card__expand-arrow">
-                                <IoIosArrowDown/>
-                                </span>)
+                                        <IoIosArrowDown/>
+                                    </span>)
                             : <></>
                     }
-                    <div>
-                        Expanded
-                    </div>
-                </div>
 
+                </div>
+                <div
+                    className="message__sent__message-card-expanded__container"
+                >
+                    Expanded
+                </div>
             </div>
         );
     }

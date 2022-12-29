@@ -109,6 +109,7 @@
   padding: 1rem;
   width: 100%;
   height: 100%;
+
 }
 
 .message__sent__title {
@@ -146,11 +147,13 @@
 .message__sent__message-list {
   width: 95%;
   height: 90%;
+
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 #message__sent__message-list {
   background-color: ghostwhite;
-  /*background-color: var(--LIGHT-COLOR);*/
 }
 
 /*  Message Sent Card  */
@@ -211,8 +214,35 @@
 
 .message__sent__message-card__expand-arrow:hover {
   background-color: var(--LIGHT-COLOR);
+}
 
+.message__sent__message-card-expanded {
+  display: flex;
+  flex-flow: column nowrap;
+}
 
+.message__sent__message-card-expanded__container {
+  width: 100%;
+  height: 200px;
+}
+
+/*  Scroll Bar  */
+
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--SCROLL-BAR-BACKGROUND)
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--SCROLL-BAR-THUMB-COLOR);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--SCROLL-BAR-THUMB-HOVER-COLOR);
 }
 
 
