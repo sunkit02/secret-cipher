@@ -10,9 +10,14 @@ interface MessageSentCardProps {
 const MessageSentCard: React.FC<MessageSentCardProps> = ({messageSent}) => {
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
     const [mouseOver, setMouseOver] = useState<boolean>(false);
+    const [displayKey, setDisplayKey] = useState<boolean>(false);
 
     const toggleExpanded = () => {
         setIsExpanded(!isExpanded);
+    }
+
+    const toggleKeyDisplayed = () => {
+        setDisplayKey(!displayKey);
     }
 
     if (!isExpanded) {
@@ -34,8 +39,10 @@ const MessageSentCard: React.FC<MessageSentCardProps> = ({messageSent}) => {
                 {
                     mouseOver ? (<span className="message__sent__message-card__expand-arrow">
                                 <IoIosArrowDown
-                                    style={{transition: "0.2s",
-                                            transform: "rotate(90deg)"}}
+                                    style={{
+                                        transition: "0.2s",
+                                        transform: "rotate(90deg)"
+                                    }}
                                 />
                                 </span>)
                         : <></>
@@ -53,9 +60,15 @@ const MessageSentCard: React.FC<MessageSentCardProps> = ({messageSent}) => {
                     onMouseLeave={_ => setMouseOver(false)}
                 >
                     <span
-                        className="message__sent__message-card__recipient text--nowrap">{messageSent.recipientUsername}</span>
-                    <span className="message__sent__message-card__subject-message text--nowrap">
-                        <b>{messageSent.subject}</b>{": " + messageSent.message}
+                        className="message__sent__message-card__recipient text--nowrap"
+                    >
+                        {"To: " + messageSent.recipientUsername}
+                    </span>
+                    <span
+                        className="message__sent__message-card__subject-message text--nowrap"
+                        style={{textAlign: "center"}}
+                    >
+                        <b>{messageSent.subject}</b>
                     </span>
                     <span
                         className="message__sent__message-card__sent-time text--nowrap">{getDateString(new Date(messageSent.timeSent))}</span>
@@ -70,11 +83,26 @@ const MessageSentCard: React.FC<MessageSentCardProps> = ({messageSent}) => {
                 <div
                     className="message__sent__message-card-expanded__container"
                 >
-                    Expanded
+                    <hr
+                        className="message__sent__message-card-expanded__strikethrough"
+                        data-content="OR"
+                    />
+                    <pre className="message__sent__message-card-expanded__message">{messageSent.message}</pre>
+                    <hr
+                        className="message__sent__message-card-expanded__strikethrough"
+                        data-content="OR"
+                    />
+                    <div className="message__sent__message-card-expanded__key-container">
+                    <span
+                        className="message__sent__message-card-expanded__key"
+                        onMouseEnter={toggleKeyDisplayed}
+                        onMouseLeave={toggleKeyDisplayed}
+                    >Encoding Key: {displayKey ? messageSent.key : "(Hover for key)"}</span>
+                    </div>
                 </div>
             </div>
         );
     }
-};
+}
 
 export default MessageSentCard;

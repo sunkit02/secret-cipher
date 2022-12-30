@@ -181,8 +181,10 @@
   display: inline-block;
   text-overflow: ellipsis;
   overflow: hidden;
-  width: 20%;
+  /*width: 20%;*/
+  min-width: auto;
   font-weight: 700;
+  margin-right: 5%;
 }
 
 
@@ -217,14 +219,53 @@
 }
 
 .message__sent__message-card-expanded {
+  font-family: var(--CURSIVE-FAMILY);
   display: flex;
   flex-flow: column nowrap;
+
+  border: 1px solid #c9c9c9;
 }
 
 .message__sent__message-card-expanded__container {
   width: 100%;
-  height: 200px;
+  height: auto;
+  background-color: rgba(197, 227, 255, 0.91);
+
+  padding: 1rem 1rem 2rem;
 }
+
+.message__sent__message-card-expanded__message {
+  font-family: inherit;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.message__sent__message-card-expanded__strikethrough {
+  color: grey;
+  width: 100%;
+  border-left: none;
+  border-bottom: none;
+
+  margin: 1rem 0 .5rem;
+}
+
+.message__sent__message-card-expanded__key-container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  width: fit-content;
+}
+
+.message__sent__message-card-expanded__key {
+  font-weight: bold;
+  font-style: italic;
+  max-width: fit-content;
+  min-width: 250px;
+
+}
+
+
 
 /*  Scroll Bar  */
 
