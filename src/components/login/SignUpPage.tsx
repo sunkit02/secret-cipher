@@ -1,8 +1,9 @@
 import React, {useState} from "react";
 import {signUp} from "../../services/auth-service";
-import {User} from "../../models/models";
+import {SignUpRequest, UsernameAndPassword} from "../../models/models";
 import {PopUpMsgType, PopUpMessage} from "../../models/popup-models";
 import {useNavigate} from "react-router-dom";
+import {parseErrorMessage} from "../../utils/error-utils";
 
 const SignUpPage: React.FC = () => {
     let navigate = useNavigate();
@@ -10,6 +11,7 @@ const SignUpPage: React.FC = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [email, setEmail] = useState<string>("");
 
     const [popUpMessage, setPopUpMessage] = useState<PopUpMessage>({type: PopUpMsgType.NONE});
     const [disableSignUpBtn, setDisableSignUpBtn] = useState(false);
@@ -25,9 +27,10 @@ const SignUpPage: React.FC = () => {
             return;
         }
 
-        let newUser: User = {
+        let newUser: SignUpRequest = {
             username: username.trim(),
-            password: password.trim()
+            password: password.trim(),
+            email: email.trim(),
         }
 
         // todo: disable sign up button
@@ -35,7 +38,8 @@ const SignUpPage: React.FC = () => {
 
         await signUp(newUser)
             .then(r => {
-                console.log(`Successfully registered user ${r.user.username}`);
+                console.log(r)
+                console.log(`Successfully registered user ${r.username}`);
                 setPopUpMessage({
                     type: PopUpMsgType.SUCCESS,
                     message: "Registration successful!"
@@ -46,6 +50,7 @@ const SignUpPage: React.FC = () => {
                 }, 500)
             })
             .catch(err => {
+                err = parseErrorMessage(err);
                 setPopUpMessage({
                     type: PopUpMsgType.ERROR,
                     message: err,
@@ -104,6 +109,15 @@ const SignUpPage: React.FC = () => {
                             type="password"
                             placeholder="Confirm password"
                             onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                    </label>
+                    <label className="sign-up__label">
+                        Email
+                        <input
+                            className="sign-up__input gen-text-input"
+                            type="email"
+                            placeholder="Email (optional)"
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </label>
 

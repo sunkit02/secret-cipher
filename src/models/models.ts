@@ -1,14 +1,25 @@
-type User = {
+import {MessageReceived, MessageSent} from "./message-models";
+
+type UsernameAndPassword = {
     username: string,
     password: string,
+}
+
+type SignUpRequest = {
+    username: string,
+    password: string,
+    email: string,
+}
+
+type User = {
+    username: string,
+    email: string,
+    messagesSent: MessageSent[],
+    messagesReceived: MessageReceived[],
 }
 
 type LoginResponse = {
     user: User,
 };
 
-type SignUpResponse = {
-    user: User,
-}
-
-export type {User, SignUpResponse, LoginResponse};
+export type {UsernameAndPassword, LoginResponse, SignUpRequest, User};

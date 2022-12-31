@@ -1,7 +1,7 @@
 import React, {useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {login} from "../../services/auth-service";
-import {User} from "../../models/models";
+import {UsernameAndPassword} from "../../models/models";
 import {PopUpMsgType, PopUpMessage} from "../../models/popup-models";
 
 interface LoginPageProps {
@@ -28,7 +28,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
     const formRef = useRef<HTMLFormElement>(null);
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        let user: User = {
+        let user: UsernameAndPassword = {
             username: usernameInput.trim(),
             password: passwordInput.trim()
         };
