@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {MessageReceived, MessageSent} from "../../../models/message-models";
+import {MessageReceived} from "../../../models/message-models";
 import {fetchReceivedMessages} from "../../../services/message-service";
 import {GetMessagesReceivedRequest} from "../../../models/payload-models";
 import {JwtTokens} from "../../../models/models";
 import {parseErrorMessage} from "../../../utils/error-utils";
 import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
+import PopUpMessageBox from "../../popups/PopUpMessage";
 
 interface ReceivedMessageTabProps {
     username: string;
@@ -45,28 +46,19 @@ const ReceivedMessageTab: React.FC<ReceivedMessageTabProps> = ({
                     type: PopUpMsgType.ERROR,
                     message: errorMessage
                 })
-        });
+            });
     }, [])
 
     return (
-        <>
-
+        <section className="message_received_container">
             Received messages
-            {
-                popUpMessage.type === PopUpMsgType.NONE
-                    ? (<div></div>)
-                    : popUpMessage.type === PopUpMsgType.ERROR ? (
-                        <div className="login__pop-up-message error-message">{popUpMessage.message}</div>
-                    ) : (
-                        <div className="login__pop-up-message success-message">{popUpMessage.message}</div>
-                    )
-            }
+            <PopUpMessageBox popUpMessage={popUpMessage}/>
             {
                 messagesReceived.map(message => {
                     return <li>{message.message}</li>
                 })
             }
-        </>
+        </section>
     );
 }
 

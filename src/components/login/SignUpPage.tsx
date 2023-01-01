@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import {signUp} from "../../services/auth-service";
-import {SignUpRequest, UsernameAndPassword} from "../../models/models";
-import {PopUpMsgType, PopUpMessage} from "../../models/popup-models";
+import {SignUpRequest} from "../../models/models";
+import {PopUpMessage, PopUpMsgType} from "../../models/popup-models";
 import {useNavigate} from "react-router-dom";
 import {parseErrorMessage} from "../../utils/error-utils";
+import PopUpMessageBox from "../popups/PopUpMessage";
 
 const SignUpPage: React.FC = () => {
     let navigate = useNavigate();
@@ -21,8 +22,8 @@ const SignUpPage: React.FC = () => {
 
         if (password !== confirmPassword) {
             setPopUpMessage({
-               type: PopUpMsgType.ERROR,
-               message: "Passwords don't match!"
+                type: PopUpMsgType.ERROR,
+                message: "Passwords don't match!"
             });
             return;
         }
@@ -70,15 +71,7 @@ const SignUpPage: React.FC = () => {
             <div className="sign-up__form-container gen-container">
                 <h2 className="sign-up__form-title"
                 >Please Fill In</h2>
-                {
-                    popUpMessage.type === PopUpMsgType.NONE
-                        ? (<div></div>)
-                        : popUpMessage.type === PopUpMsgType.ERROR ? (
-                            <div className="login__pop-up-message error-message">{popUpMessage.message}</div>
-                        ) : (
-                            <div className="login__pop-up-message success-message">{popUpMessage.message}</div>
-                        )
-                }
+                <PopUpMessageBox popUpMessage={popUpMessage}/>
                 <form
                     className="sign-up__form"
                     onSubmit={handleSignUp}

@@ -5,6 +5,7 @@ import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
 import {SendNewMessageRequest} from "../../../models/payload-models";
 import {parseErrorMessage} from "../../../utils/error-utils";
 import {JwtTokens} from "../../../models/models";
+import PopUpMessageBox from "../../popups/PopUpMessage";
 
 interface SendNewMessageTabProps {
     username: string;
@@ -96,15 +97,7 @@ const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
         <section className="message__send-new__container">
             <h3 className="message__send-new__title">
                 New Message</h3>
-            {
-                popUpMessage.type === PopUpMsgType.NONE
-                    ? (<div></div>)
-                    : popUpMessage.type === PopUpMsgType.ERROR ? (
-                        <div className="login__pop-up-message error-message">{popUpMessage.message}</div>
-                    ) : (
-                        <div className="login__pop-up-message success-message">{popUpMessage.message}</div>
-                    )
-            }
+            <PopUpMessageBox popUpMessage={popUpMessage}/>
             <form
                 ref={formRef}
                 className="message__send-new__message-form"

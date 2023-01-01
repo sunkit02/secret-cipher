@@ -7,6 +7,7 @@ import {GetMessagesSentRequest} from "../../../models/payload-models";
 import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
 import {parseErrorMessage} from "../../../utils/error-utils";
 import {JwtTokens} from "../../../models/models";
+import PopUpMessageBox from "../../popups/PopUpMessage";
 
 interface SentMessagesTabProps {
     username: string;
@@ -72,15 +73,7 @@ const SentMessageTab: React.FC<SentMessagesTabProps> = ({
     return (
         <section className="message__sent__container">
             <h3 className="message__sent__title">Sent Messages</h3>
-            {
-                popUpMessage.type === PopUpMsgType.NONE
-                    ? (<div></div>)
-                    : popUpMessage.type === PopUpMsgType.ERROR ? (
-                        <div className="message__sent__pop-up-message error-message">{popUpMessage.message}</div>
-                    ) : (
-                        <div className="message__sent__pop-up-message success-message">{popUpMessage.message}</div>
-                    )
-            }
+            <PopUpMessageBox popUpMessage={popUpMessage}/>
             <MessagesSentSearchBar
                 setFilteredMessages={setFilteredMessagesSent}
                 messagesSent={messagesSent}

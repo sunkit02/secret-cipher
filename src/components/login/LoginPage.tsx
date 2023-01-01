@@ -5,6 +5,7 @@ import {JwtTokens, UsernameAndPassword} from "../../models/models";
 import {PopUpMessage, PopUpMsgType} from "../../models/popup-models";
 import {MessageReceived, MessageSent} from "../../models/message-models";
 import {parseErrorMessage} from "../../utils/error-utils";
+import PopUpMessageBox from "../popups/PopUpMessage";
 
 interface LoginPageProps {
     setUsername: React.Dispatch<React.SetStateAction<string>>;
@@ -97,15 +98,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
             <div className="login__form-container gen-container">
                 <h2 className="login__form-title"
                 >Please Enter</h2>
-                {
-                    popUpMessage.type === PopUpMsgType.NONE
-                        ? (<div></div>)
-                        : popUpMessage.type === PopUpMsgType.ERROR ? (
-                            <div className="login__pop-up-message error-message">{popUpMessage.message}</div>
-                        ) : (
-                            <div className="login__pop-up-message success-message">{popUpMessage.message}</div>
-                        )
-                }
+                <PopUpMessageBox popUpMessage={popUpMessage}/>
                 <form
                     className="login__form"
                     ref={formRef}
