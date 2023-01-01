@@ -31,6 +31,14 @@ const SentMessageTab: React.FC<SentMessagesTabProps> = ({
             });
     }
 
+    const sortMessagesByTimeSent = (messages: MessageSent[]): MessageSent[] => {
+        return messages.sort((a, b) => {
+            let date1 = new Date(a.timeSent).getTime();
+            let date2 = new Date(b.timeSent).getTime();
+            return date1 > date2 ? -1 : date1 < date2 ? 1 : 0;
+        });
+    }
+
     useEffect(() => {
         let fetchRequest: GetMessagesSentRequest = {
             username
@@ -40,11 +48,7 @@ const SentMessageTab: React.FC<SentMessagesTabProps> = ({
             // todo: optimize solution
             .then(sentMessages => {
                 console.log("Before sort: ", sentMessages);
-                sentMessages = sentMessages.sort((a, b) => {
-                    let date1 = new Date(a.timeSent).getTime();
-                    let date2 = new Date(b.timeSent).getTime();
-                    return date1 > date2 ? -1 : date1 < date2 ? 1 : 0;
-                })
+                sentMessages = sortMessagesByTimeSent(sentMessages)
                 console.log("After sort: ", sentMessages);
                 if (!messagesEqual(sentMessages, messagesSent))
                     setMessagesSent(sentMessages);
