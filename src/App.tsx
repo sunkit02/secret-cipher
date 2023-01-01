@@ -20,15 +20,16 @@ import SentMessageTab from "./components/message/sent/SentMessageTab";
 import SendNewMessageTab from "./components/message/send/SendNewMessageTab";
 import LoginPage from "./components/login/LoginPage";
 import SignUpPage from "./components/login/SignUpPage";
-import {MessageSent} from "./models/message-models";
+import {MessageReceived, MessageSent} from "./models/message-models";
+import {JwtTokens} from "./models/models";
 
 const App: React.FC = () => {
     const [loggedIn, setLoggedIn] = useState(false);
     const [username, setUsername] = useState("Guest");
-
-
     const [messagesSent, setMessagesSent] = useState<MessageSent[]>([]);
-    const [messagesReceived, setMessagesReceived] = useState<MessageSent[]>([]);
+    const [messagesReceived, setMessagesReceived] = useState<MessageReceived[]>([]);
+
+    const [jwtTokens, setJwtTokens] = useState<JwtTokens | null>({accessToken: "", refreshToken: ""});
 
     return (
         <>
@@ -43,11 +44,11 @@ const App: React.FC = () => {
                     <Route index element={<HomePage/>}/>
                     <Route path="encoder" element={<EncoderPage loggedIn={loggedIn} username={username}/>}/>
                     <Route path="message" element={<MessagePage loggedIn={loggedIn} username={username}/>}>
-                        <Route path="send" element={<SendNewMessageTab username={username} messagesSent={messagesSent} setMessagesSent={setMessagesSent}/>}/>
-                        <Route path="received" element={<ReceivedMessageTab messagesReceived={messagesReceived} setMessagesReceived={setMessagesReceived} />}/>
-                        <Route path="sent" element={<SentMessageTab username={username} messagesSent={messagesSent} setMessagesSent={setMessagesSent} />}/>
+                        <Route path="send" element={<SendNewMessageTab username={username} messagesSent={messagesSent} setMessagesSent={setMessagesSent} jwtTokens={jwtTokens}/>}/>
+                        <Route path="received" element={<ReceivedMessageTab messagesReceived={messagesReceived} setMessagesReceived={setMessagesReceived}  jwtTokens={jwtTokens} username={username}/>}/>
+                        <Route path="sent" element={<SentMessageTab username={username} messagesSent={messagesSent} setMessagesSent={setMessagesSent} jwtTokens={jwtTokens}/>}/>
                     </Route>
-                    <Route path="login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} setUsername={setUsername}/>}/>
+                    <Route path="login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} setUsername={setUsername} setMessagesSent={setMessagesSent} setMessagesReceived={setMessagesReceived} setJwtTokens={setJwtTokens}/>}/>
                     <Route path="signup" element={<SignUpPage/>}/>
                 </Routes>
             </div>

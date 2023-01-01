@@ -4,17 +4,20 @@ import {sendNewMessage} from "../../../services/message-service";
 import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
 import {SendNewMessageRequest} from "../../../models/payload-models";
 import {parseErrorMessage} from "../../../utils/error-utils";
+import {JwtTokens} from "../../../models/models";
 
 interface SendNewMessageTabProps {
     username: string;
     messagesSent: MessageSent[];
-    setMessagesSent: React.Dispatch<React.SetStateAction<MessageSent[]>>
+    setMessagesSent: React.Dispatch<React.SetStateAction<MessageSent[]>>;
+    jwtTokens: JwtTokens | null;
 }
 
 const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
                                                                  username,
                                                                  messagesSent,
-                                                                 setMessagesSent
+                                                                 setMessagesSent,
+                                                                 jwtTokens,
                                                              }) => {
     const [popUpMessage, setPopUpMessage] = useState<PopUpMessage>({type: PopUpMsgType.NONE});
 
@@ -44,7 +47,7 @@ const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
 
         setIsSendingMessage(true);
         setTimeout(() => {
-            sendNewMessage(newMessage)
+            sendNewMessage(newMessage, jwtTokens?.accessToken)
                 .then(message => {
                     console.log("Message sent successfully!")
                     console.log(message)
@@ -85,7 +88,7 @@ const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
                         setPopUpMessage({type: PopUpMsgType.NONE})
                     }, 3000);
                 });
-            }, 500)
+        }, 500)
     }
 
 
@@ -142,7 +145,7 @@ const SendNewMessageTab: React.FC<SendNewMessageTabProps> = ({
                     disabled={isSendingMessage}
                 >{
                     isSendingMessage
-                    ? "Sending Message..."
+                        ? "Sending Message..."
                         : "Send Message"
                 }
                 </button>

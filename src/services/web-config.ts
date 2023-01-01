@@ -5,13 +5,14 @@ const DECODING_URL = API_URL + "/encoding/decode";
 // Messages controller
 const SEND_NEW_MESSAGE_URL = API_URL + "/messages/send";
 
-
 // User controller
 const GET_SENT_MESSAGES_URL = API_URL + "/user/sent-messages";
+const GET_RECEIVED_MESSAGES_URL = API_URL + "/user/received-messages";
 
 
 // Auth controller
 const REGISTER_URL = API_URL + "/auth/register";
+const LOGIN_URL = API_URL + "/auth/login";
 
 export {
     API_URL,
@@ -19,5 +20,7 @@ export {
     ENCODING_URL,
     SEND_NEW_MESSAGE_URL,
     GET_SENT_MESSAGES_URL,
-    REGISTER_URL
+    GET_RECEIVED_MESSAGES_URL,
+    REGISTER_URL,
+    LOGIN_URL
 };

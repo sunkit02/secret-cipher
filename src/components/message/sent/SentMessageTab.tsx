@@ -6,17 +6,20 @@ import {fetchSentMessages} from "../../../services/message-service";
 import {GetMessagesSentRequest} from "../../../models/payload-models";
 import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
 import {parseErrorMessage} from "../../../utils/error-utils";
+import {JwtTokens} from "../../../models/models";
 
 interface SentMessagesTabProps {
     username: string;
     messagesSent: MessageSent[];
     setMessagesSent: React.Dispatch<React.SetStateAction<MessageSent[]>>;
+    jwtTokens: JwtTokens | null;
 }
 
 const SentMessageTab: React.FC<SentMessagesTabProps> = ({
                                                             username,
                                                             messagesSent,
-                                                            setMessagesSent
+                                                            setMessagesSent,
+                                                            jwtTokens,
                                                         }) => {
     const [popUpMessage, setPopUpMessage] = useState<PopUpMessage>({type: PopUpMsgType.NONE});
     const [filteredMessagesSent, setFilteredMessagesSent] = useState<MessageSent[]>(messagesSent);
@@ -32,7 +35,7 @@ const SentMessageTab: React.FC<SentMessagesTabProps> = ({
         let fetchRequest: GetMessagesSentRequest = {
             username
         }
-        fetchSentMessages(fetchRequest)
+        fetchSentMessages(fetchRequest, jwtTokens?.accessToken)
             // update sent message list if not equal
             // todo: optimize solution
             .then(sentMessages => {

@@ -10,4 +10,12 @@ interface GetMessagesSentRequest {
     username: string;
 }
 
-export type {SendNewMessageRequest, GetMessagesSentRequest};
+interface GetMessagesReceivedRequest {
+    username: string;
+}
+
+export type {
+    SendNewMessageRequest,
+    GetMessagesSentRequest,
+    GetMessagesReceivedRequest
+};

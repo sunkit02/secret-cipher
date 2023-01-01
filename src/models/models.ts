@@ -19,7 +19,13 @@ type User = {
 }
 
 type LoginResponse = {
+    tokens: JwtTokens,
     user: User,
-};
+}
 
-export type {UsernameAndPassword, LoginResponse, SignUpRequest, User};
+type JwtTokens = {
+    accessToken: string,
+    refreshToken: string,
+}
+
+export type {UsernameAndPassword, SignUpRequest, User, LoginResponse, JwtTokens};
