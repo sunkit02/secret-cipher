@@ -10,7 +10,7 @@ const MessagesSentList: React.FC<MessagesSentListProps> = ({filteredMessagesSent
     return (
         <div
             id="message__sent__message-list"
-            className="message__sent__message-list gen-container">
+            className="message__message-list gen-container">
             {
                 filteredMessagesSent.map(message => {
                     return <MessageSentCard key={message.id} messageSent={message}/>

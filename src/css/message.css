@@ -100,7 +100,7 @@
 
 /*  Messages Sent Tab  */
 
-.message__sent__container {
+.message__tab__container {
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -112,17 +112,17 @@
 
 }
 
-.message__sent__title {
+.message__tab__title {
   font-family: var(--CURSIVE-FAMILY);
   text-align: center;
   margin-bottom: 0.5rem;
 }
 
-.message__sent__searchbar-container {
+.message__searchbar-container {
   width: 100%;
 }
 
-.message__sent__searchbar-form {
+.message__searchbar-form {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,21 +130,21 @@
   width: 100%;
 }
 
-.message__sent__searchbar-input {
+.message__searchbar-input {
   width: 65%;
   padding: 0.3rem;
   font-size: inherit;
   font-family: var(--CURSIVE-FAMILY);
 }
 
-.message__sent__searchbar-btn {
+.message__searchbar-btn {
   padding: 0.5rem 1.5rem;
   font-size: inherit;
 }
 
 /*  Messages Sent List  */
 
-.message__sent__message-list {
+.message__message-list {
   width: 95%;
   height: 90%;
 
@@ -158,7 +158,7 @@
 
 /*  Message Sent Card  */
 
-.message__sent__message-card {
+.message__tab__message-card {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -170,14 +170,14 @@
   transition: 0.2s;
 }
 
-.message__sent__message-card:hover {
+.message__tab__message-card:hover {
   cursor: pointer;
   border: 1px solid #c9c9c9;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   padding: 0.3rem 0.3rem 0.3rem 1rem;
 }
 
-.message__sent__message-card__recipient {
+.message__tab__message-card__recipient {
   display: inline-block;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -188,14 +188,14 @@
 }
 
 
-.message__sent__message-card__subject-message {
+.message__tab__message-card__subject-message {
   width: 60%;
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.message__sent__message-card__sent-time {
+.message__tab__message-card__sent-time {
   text-overflow: ellipsis;
   overflow: hidden;
   max-width: 15%;
@@ -205,7 +205,7 @@
   font-weight: 700;
 }
 
-.message__sent__message-card__expand-arrow {
+.message__tab__message-card__expand-arrow {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -214,11 +214,11 @@
   width: 25px;
 }
 
-.message__sent__message-card__expand-arrow:hover {
+.message__tab__message-card__expand-arrow:hover {
   background-color: var(--LIGHT-COLOR);
 }
 
-.message__sent__message-card-expanded {
+.message__tab__message-card-expanded {
   font-family: var(--CURSIVE-FAMILY);
   display: flex;
   flex-flow: column nowrap;
@@ -226,7 +226,7 @@
   border: 1px solid #c9c9c9;
 }
 
-.message__sent__message-card-expanded__container {
+.message__tab__message-card-expanded__container {
   width: 100%;
   height: auto;
   background-color: rgba(197, 227, 255, 0.91);
@@ -241,7 +241,7 @@
   word-wrap: break-word;
 }
 
-.message__sent__message-card-expanded__strikethrough {
+.message__tab__message-card-expanded__strikethrough {
   color: grey;
   width: 100%;
   border-left: none;
@@ -265,6 +265,11 @@
 
 }
 
+/*  Message Received List  */
+
+#message__received__message-list {
+  background-color: ghostwhite;
+}
 
 
 /*  Scroll Bar  */

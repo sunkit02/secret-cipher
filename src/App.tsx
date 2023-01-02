@@ -15,8 +15,8 @@ import "./css/home.css";
 import "./css/encoder.css";
 import "./css/message.css";
 
-import ReceivedMessageTab from "./components/message/received/ReceivedMessageTab";
-import SentMessageTab from "./components/message/sent/SentMessageTab";
+import MessagesReceivedTab from "./components/message/received/MessagesReceivedTab";
+import MessagesSentTab from "./components/message/sent/MessagesSentTab";
 import SendNewMessageTab from "./components/message/send/SendNewMessageTab";
 import LoginPage from "./components/login/LoginPage";
 import SignUpPage from "./components/login/SignUpPage";
@@ -45,8 +45,8 @@ const App: React.FC = () => {
                     <Route path="encoder" element={<EncoderPage loggedIn={loggedIn} username={username}/>}/>
                     <Route path="message" element={<MessagePage loggedIn={loggedIn} username={username}/>}>
                         <Route path="send" element={<SendNewMessageTab username={username} messagesSent={messagesSent} setMessagesSent={setMessagesSent} jwtTokens={jwtTokens}/>}/>
-                        <Route path="received" element={<ReceivedMessageTab messagesReceived={messagesReceived} setMessagesReceived={setMessagesReceived}  jwtTokens={jwtTokens} username={username}/>}/>
-                        <Route path="sent" element={<SentMessageTab username={username} messagesSent={messagesSent} setMessagesSent={setMessagesSent} jwtTokens={jwtTokens}/>}/>
+                        <Route path="received" element={<MessagesReceivedTab messagesReceived={messagesReceived} setMessagesReceived={setMessagesReceived} jwtTokens={jwtTokens} username={username}/>}/>
+                        <Route path="sent" element={<MessagesSentTab username={username} messagesSent={messagesSent} setMessagesSent={setMessagesSent} jwtTokens={jwtTokens}/>}/>
                     </Route>
                     <Route path="login" element={<LoginPage loggedIn={loggedIn} setLoggedIn={setLoggedIn} setUsername={setUsername} setMessagesSent={setMessagesSent} setMessagesReceived={setMessagesReceived} setJwtTokens={setJwtTokens}/>}/>
                     <Route path="signup" element={<SignUpPage/>}/>

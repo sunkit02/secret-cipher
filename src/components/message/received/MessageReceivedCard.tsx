@@ -1,13 +1,13 @@
 import React, {useState} from "react";
-import {MessageSent} from "../../../models/message-models";
+import {MessageReceived} from "../../../models/message-models";
 import {getDateString} from "../../../utils/date-utils";
 import {IoIosArrowDown} from "react-icons/io";
 
-interface MessageSentCardProps {
-    messageSent: MessageSent;
+interface MessageReceivedCardProps {
+    messageReceived: MessageReceived;
 }
 
-const MessageSentCard: React.FC<MessageSentCardProps> = ({messageSent}) => {
+const MessageReceivedCard: React.FC<MessageReceivedCardProps> = ({messageReceived}) => {
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
     const [mouseOver, setMouseOver] = useState<boolean>(false);
     const [displayKey, setDisplayKey] = useState<boolean>(false);
@@ -30,12 +30,12 @@ const MessageSentCard: React.FC<MessageSentCardProps> = ({messageSent}) => {
                 onMouseLeave={_ => setMouseOver(false)}
             >
                 <span
-                    className="message__tab__message-card__recipient text--nowrap">{messageSent.recipientUsername}</span>
+                    className="message__tab__message-card__recipient text--nowrap">{messageReceived.recipientUsername}</span>
                 <span className="message__tab__message-card__subject-message text--nowrap">
-                <b>{messageSent.subject}</b>{": " + messageSent.message}
+                <b>{messageReceived.subject}</b>{": " + messageReceived.message}
             </span>
                 <span
-                    className="message__tab__message-card__sent-time text--nowrap">{getDateString(new Date(messageSent.timeSent))}</span>
+                    className="message__tab__message-card__sent-time text--nowrap">{getDateString(new Date(messageReceived.timeSent))}</span>
                 {
                     mouseOver ? (<span className="message__tab__message-card__expand-arrow">
                                 <IoIosArrowDown
@@ -62,16 +62,16 @@ const MessageSentCard: React.FC<MessageSentCardProps> = ({messageSent}) => {
                     <span
                         className="message__tab__message-card__recipient text--nowrap"
                     >
-                        {"To: " + messageSent.recipientUsername}
+                        {"To: " + messageReceived.recipientUsername}
                     </span>
                     <span
                         className="message__tab__message-card__subject-message text--nowrap"
                         style={{textAlign: "center"}}
                     >
-                        <b>{messageSent.subject}</b>
+                        <b>{messageReceived.subject}</b>
                     </span>
                     <span
-                        className="message__tab__message-card__sent-time text--nowrap">{getDateString(new Date(messageSent.timeSent))}</span>
+                        className="message__tab__message-card__sent-time text--nowrap">{getDateString(new Date(messageReceived.timeSent))}</span>
                     {
                         mouseOver ? (<span className="message__tab__message-card__expand-arrow">
                                         <IoIosArrowDown/>
@@ -83,22 +83,11 @@ const MessageSentCard: React.FC<MessageSentCardProps> = ({messageSent}) => {
                 <div
                     className="message__tab__message-card-expanded__container"
                 >
-                    <pre className="message__sent__message-card-expanded__message">{messageSent.message}</pre>
-                    <hr
-                        className="message__tab__message-card-expanded__strikethrough"
-                        data-content="OR"
-                    />
-                    <div className="message__sent__message-card-expanded__key-container">
-                    <span
-                        className="message__sent__message-card-expanded__key"
-                        onMouseEnter={toggleKeyDisplayed}
-                        onMouseLeave={toggleKeyDisplayed}
-                    >Encoding Key: {displayKey ? messageSent.key : "(Hover for key)"}</span>
-                    </div>
+                    <pre className="message__sent__message-card-expanded__message">{messageReceived.message}</pre>
                 </div>
             </div>
         );
     }
 }
 
-export default MessageSentCard;
+export default MessageReceivedCard;

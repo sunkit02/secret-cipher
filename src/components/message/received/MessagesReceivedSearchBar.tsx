@@ -1,20 +1,21 @@
 import React, {useEffect, useState} from "react";
-import {MessageSent} from "../../../models/message-models";
+import {MessageReceived} from "../../../models/message-models";
 
-interface MessageSentSearchBarProps {
-    setFilteredMessages: React.Dispatch<React.SetStateAction<MessageSent[]>>;
-    messagesSent: MessageSent[];
+interface MessageReceivedSearchBarProps {
+    setFilteredMessages: React.Dispatch<React.SetStateAction<MessageReceived[]>>;
+    messagesReceived: MessageReceived[];
 }
 
-const MessagesSentSearchBar: React.FC<MessageSentSearchBarProps> = ({
-                                                             setFilteredMessages,
-                                                             messagesSent
-                                                         }) => {
+
+const MessagesReceivedSearchBar: React.FC<MessageReceivedSearchBarProps> = ({
+                                                                                setFilteredMessages,
+                                                                                messagesReceived,
+                                                                            }) => {
     const [searchQuery, setSearchQuery] = useState<string>("");
 
-    const filterMessages = (messages: MessageSent[], query: string) => {
+    const filterMessages = (messages: MessageReceived[], query: string) => {
         let queryUpper = query.toUpperCase();
-        
+
         // matches all messages where the recipient, subject, or message
         // includes the search query (case-insensitive)
         return messages.filter(m => {
@@ -24,16 +25,16 @@ const MessagesSentSearchBar: React.FC<MessageSentSearchBarProps> = ({
         });
     }
 
-    // updates the filtered messages when 
+    // updates the filtered messages when
     // there are new messages sent or the search query changes
     useEffect(() => {
-        let filteredMessages = filterMessages(messagesSent, searchQuery);
+        let filteredMessages = filterMessages(messagesReceived, searchQuery);
         setFilteredMessages(filteredMessages);
-    }, [messagesSent, searchQuery, setFilteredMessages])
+    }, [messagesReceived, searchQuery, setFilteredMessages])
 
     const handleSearchOnClick = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        let filteredMessages = filterMessages(messagesSent, searchQuery);
+        let filteredMessages = filterMessages(messagesReceived, searchQuery);
         setFilteredMessages(filteredMessages);
     };
 
@@ -61,4 +62,4 @@ const MessagesSentSearchBar: React.FC<MessageSentSearchBarProps> = ({
     );
 }
 
-export default MessagesSentSearchBar;
+export default MessagesReceivedSearchBar;

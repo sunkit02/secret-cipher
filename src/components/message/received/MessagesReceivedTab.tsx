@@ -6,15 +6,17 @@ import {JwtTokens} from "../../../models/models";
 import {parseErrorMessage} from "../../../utils/error-utils";
 import {PopUpMessage, PopUpMsgType} from "../../../models/popup-models";
 import PopUpMessageBox from "../../popups/PopUpMessage";
+import MessagesReceivedSearchBar from "./MessagesReceivedSearchBar";
+import MessagesReceivedList from "./MessagesReceivedList";
 
-interface ReceivedMessageTabProps {
+interface MessagesReceivedTabProps {
     username: string;
     messagesReceived: MessageReceived[];
     setMessagesReceived: React.Dispatch<React.SetStateAction<MessageReceived[]>>
     jwtTokens: JwtTokens | null;
 }
 
-const ReceivedMessageTab: React.FC<ReceivedMessageTabProps> = ({
+const MessagesReceivedTab: React.FC<MessagesReceivedTabProps> = ({
                                                                    username,
                                                                    messagesReceived,
                                                                    setMessagesReceived,
@@ -22,6 +24,7 @@ const ReceivedMessageTab: React.FC<ReceivedMessageTabProps> = ({
                                                                }) => {
 
     const [popUpMessage, setPopUpMessage] = useState<PopUpMessage>({type: PopUpMsgType.NONE});
+    const [filteredMessagesReceived, setFilteredMessagesReceived] = useState<MessageReceived[]>([]);
 
     const messagesEqual = (a: MessageReceived[], b: MessageReceived[]) => {
         return a.length === b.length &&
@@ -50,16 +53,16 @@ const ReceivedMessageTab: React.FC<ReceivedMessageTabProps> = ({
     }, [])
 
     return (
-        <section className="message_received_container">
-            Received messages
+        <section className="message__tab__container">
+            <h3 className="message__tab__title">Inbox</h3>
             <PopUpMessageBox popUpMessage={popUpMessage}/>
-            {
-                messagesReceived.map(message => {
-                    return <li>{message.message}</li>
-                })
-            }
+            <MessagesReceivedSearchBar
+                setFilteredMessages={setFilteredMessagesReceived}
+                messagesReceived={messagesReceived}
+            />
+            <MessagesReceivedList filteredMessagesReceived={filteredMessagesReceived} />
         </section>
     );
 }
 
-export default ReceivedMessageTab;
+export default MessagesReceivedTab;

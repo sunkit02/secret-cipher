@@ -9,14 +9,14 @@ import {parseErrorMessage} from "../../../utils/error-utils";
 import {JwtTokens} from "../../../models/models";
 import PopUpMessageBox from "../../popups/PopUpMessage";
 
-interface SentMessagesTabProps {
+interface MessagesSentTabProps {
     username: string;
     messagesSent: MessageSent[];
     setMessagesSent: React.Dispatch<React.SetStateAction<MessageSent[]>>;
     jwtTokens: JwtTokens | null;
 }
 
-const SentMessageTab: React.FC<SentMessagesTabProps> = ({
+const MessagesSentTab: React.FC<MessagesSentTabProps> = ({
                                                             username,
                                                             messagesSent,
                                                             setMessagesSent,
@@ -71,8 +71,8 @@ const SentMessageTab: React.FC<SentMessagesTabProps> = ({
 
 
     return (
-        <section className="message__sent__container">
-            <h3 className="message__sent__title">Sent Messages</h3>
+        <section className="message__tab__container">
+            <h3 className="message__tab__title">Sent Messages</h3>
             <PopUpMessageBox popUpMessage={popUpMessage}/>
             <MessagesSentSearchBar
                 setFilteredMessages={setFilteredMessagesSent}
@@ -83,4 +83,4 @@ const SentMessageTab: React.FC<SentMessagesTabProps> = ({
     );
 }
 
-export default SentMessageTab;
+export default MessagesSentTab;
