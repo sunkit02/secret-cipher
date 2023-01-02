@@ -3,14 +3,14 @@ import {OperationType} from "../../models/encoder-models";
 
 interface KeyInputBarProps {
     encodeKey: string;
-    setKey: React.Dispatch<React.SetStateAction<string>>;
+    handleKeyChange: (e: ChangeEvent<HTMLInputElement>) => void;
     operationType: OperationType;
     handleOperationTypeChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const KeyInputBar: React.FC<KeyInputBarProps> = ({
                                                      encodeKey,
-                                                     setKey,
+                                                     handleKeyChange,
                                                      operationType,
                                                      handleOperationTypeChange
                                                  }) => {
@@ -19,7 +19,7 @@ const KeyInputBar: React.FC<KeyInputBarProps> = ({
             <input
                 className="encoder__key-input gen-text-input"
                 type="text"
-                onChange={(e) => setKey(e.target.value)}
+                onChange={handleKeyChange}
                 placeholder="Enter key here"
                 value={encodeKey}
             />

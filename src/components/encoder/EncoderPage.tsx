@@ -2,7 +2,8 @@ import React, {ChangeEvent, useEffect, useState} from "react";
 import {Navigate} from "react-router-dom";
 import {SOCKET_URL} from "../../services/websocket-service";
 import {
-    Channel, DecodingRequest,
+    Channel,
+    DecodingRequest,
     DecodingResult,
     EncodingRequest,
     EncodingResult,
@@ -36,7 +37,7 @@ const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn, username}) => {
     const [copyOutput, setCopyOutput] = useState<number[] | string>([]);
 
     // @ts-ignore
-    const [stompClient, ] = useState<Client | null>(over(new SockJS(SOCKET_URL)));
+    const [stompClient,] = useState<Client | null>(over(new SockJS(SOCKET_URL)));
 
 
     const onConnected = () => {
@@ -62,7 +63,7 @@ const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn, username}) => {
     // todo: make this not reconnect on every refresh
     useEffect(() => {
         connectToServer();
-    }, []);
+    }, [connectToServer, username]);
 
     // @ts-ignore
     const onEncodingResultReceived = (message: Message) => {
@@ -78,7 +79,7 @@ const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn, username}) => {
         setCopyOutput(decodingResult.decodedBytes);
     }
     // @ts-ignore
-    const [channels, ] = useState<Channel[]>([
+    const [channels,] = useState<Channel[]>([
         {
             route: "/user/topic/private-encode",
             callBack: onEncodingResultReceived
@@ -88,6 +89,24 @@ const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn, username}) => {
             callBack: onDecodingResultReceived
         }
     ]);
+
+    const sendEncoderRequest = (key: string, username: string, message: string, operationType: OperationType) => {
+        if (operationType === OperationType.ENCODE) {
+            let encodingRequest: EncodingRequest = {
+                key,
+                username,
+                message
+            }
+            sendEncodingRequest(encodingRequest);
+        } else {
+            let decodingRequest: DecodingRequest = {
+                key,
+                username,
+                message
+            }
+            sendDecodingRequest(decodingRequest);
+        }
+    }
 
 
     // handles user input to the input text area
@@ -120,6 +139,30 @@ const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn, username}) => {
         setTextAreaHeight(height);
     }
 
+    const handleKeyChange = (e: ChangeEvent<HTMLInputElement>) => {
+        let newKey = e.target.value;
+
+        // updates the rendered input value
+        // and sends encoding or decoding request to the server via websocket
+        if (operationType === OperationType.ENCODE) {
+            let encodingRequest: EncodingRequest = {
+                key: newKey,
+                username,
+                message: input
+            }
+            sendEncodingRequest(encodingRequest);
+        } else {
+            let decodingRequest: DecodingRequest = {
+                key: newKey,
+                message: input,
+                username
+            }
+            sendDecodingRequest(decodingRequest);
+        }
+
+        setKey(newKey);
+    }
+
 
     // updates the operation type state when user selection changes
     const handleOperationTypeChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -127,9 +170,25 @@ const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn, username}) => {
         console.info(`New encoding mode: "${newOperationType}"`);
 
         if (newOperationType === OperationType.ENCODE) {
-            setOperationType(OperationType.ENCODE);
+            setOperationType(() => {
+                let encodingRequest: EncodingRequest = {
+                    key,
+                    username,
+                    message: input
+                };
+                sendEncodingRequest(encodingRequest);
+                return OperationType.ENCODE
+            });
         } else {
-            setOperationType(OperationType.DECODE);
+            setOperationType(() => {
+                let decodingRequest: DecodingRequest = {
+                    key,
+                    username,
+                    message: input
+                }
+                sendDecodingRequest(decodingRequest);
+                return OperationType.DECODE
+            });
         }
     };
 
@@ -166,7 +225,7 @@ const EncoderPage: React.FC<EncoderPageProps> = ({loggedIn, username}) => {
             <h3>Encoder</h3>
             <KeyInputBar
                 encodeKey={key}
-                setKey={setKey}
+                handleKeyChange={handleKeyChange}
                 operationType={operationType}
                 handleOperationTypeChange={handleOperationTypeChange}
             />
